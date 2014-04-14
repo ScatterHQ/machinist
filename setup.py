@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+# Copyright Hybrid Logic Ltd.  See LICENSE file for details.
+
+from inspect import cleandoc
+
+from setuptools import setup
+
+__version__ = "0.1"
+
+setup(
+    name="machinist",
+    version=__version__,
+    packages=["machinist", "machinist.test"],
+    description=cleandoc("""
+        Machinist is a tool for building finite state machines.
+    """),
+    long_description=cleandoc("""
+        A finite state machine maps simple, symbolic inputs to simple, symbolic
+        outputs.  In this context, symbolic means that nothing differentiates
+        the values from each other apart from their identity.
+
+        The mapping from inputs to outputs also includes definitions for state
+        transitions.  The current state of the machine changes to a new value
+        each time an input is mapped to an output (though the new value may be
+        the same as the old value).
+        """),
+    url="https://github.com/hybridlogic/machinist",
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: Microsoft :: Windows",
+        "Operating System :: POSIX",
+
+        # General classifiers to indicate "this project supports Python 2" and
+        # "this project supports Python 3".
+        "Programming Language :: Python :: 2",
+
+        # More specific classifiers to indicate more precisely which versions
+        # of those languages the project supports.
+        "Programming Language :: Python :: 2.7",
+
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        ],
+    install_requires=["twisted>=13.1", "eliot>=0.3.0"],
+    test_suite="machinist",
+    )
