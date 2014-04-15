@@ -1,4 +1,3 @@
-
 put together finite state machines
 ----------------------------------
 
