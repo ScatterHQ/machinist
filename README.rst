@@ -6,7 +6,7 @@ https://www.hybridcluster.com/blog/what-is-a-state-machine/
 https://www.hybridcluster.com/blog/benefits-state-machine/
 https://www.hybridcluster.com/blog/unit-testing-state-machines/
 
-.. include:: doc/example.py.rst
+.. literal-include:: doc/example.py.rst
 
 installation
 ~~~~~~~~~~~~
