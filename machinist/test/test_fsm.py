@@ -1,7 +1,7 @@
 # Copyright Hybrid Logic Ltd.  See LICENSE file for details.
 
 """
-Tests for L{hybridcluster.fsm}.
+Tests for L{machinist}.
 """
 
 from zope.interface import Attribute, Interface, implementer
