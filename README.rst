@@ -2,10 +2,6 @@
 machinist - put together finite state machines
 ----------------------------------------------
 
- * https://www.hybridcluster.com/blog/what-is-a-state-machine/
- * https://www.hybridcluster.com/blog/benefits-state-machine/
- * https://www.hybridcluster.com/blog/unit-testing-state-machines/
-
 .. code-block:: python
 
   class TurnstileInput(Names):
@@ -45,6 +41,12 @@ machinist - put together finite state machines
 
 
 For the rest of this example, see `doc/turnstile.py <https://github.com/hybridlogic/machinist/blob/master/doc/turnstile.py>`_.
+
+For more discussion of the benefits of this style, see:
+
+ * https://www.hybridcluster.com/blog/what-is-a-state-machine/
+ * https://www.hybridcluster.com/blog/benefits-state-machine/
+ * https://www.hybridcluster.com/blog/unit-testing-state-machines/
 
 installation
 ~~~~~~~~~~~~
