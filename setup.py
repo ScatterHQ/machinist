@@ -46,6 +46,6 @@ setup(
 
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
-    install_requires=["twisted>=13.1", "eliot>=0.3.0"],
+    install_requires=["zope.interface>=3.6.0", "twisted>=13.1", "eliot>=0.3.0"],
     test_suite="machinist",
     )
