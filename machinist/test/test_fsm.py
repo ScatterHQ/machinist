@@ -8,7 +8,7 @@ from zope.interface import Attribute, Interface, implementer
 from zope.interface.exceptions import DoesNotImplement
 from zope.interface.verify import verifyObject
 
-from eliot import MessageType, Logger, MemoryLogger
+from eliot import MessageType, Logger
 from eliot.testing import (
     issuperset, assertContainsFields, LoggedAction, LoggedMessage,
     validateLogging,
