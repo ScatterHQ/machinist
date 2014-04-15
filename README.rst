@@ -1,6 +1,6 @@
 
-machinist - put together finite state machines
-----------------------------------------------
+put together finite state machines
+----------------------------------
 
 .. code-block:: python
 
