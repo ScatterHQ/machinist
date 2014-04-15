@@ -6,6 +6,8 @@ machinist - put together finite state machines
  * https://www.hybridcluster.com/blog/benefits-state-machine/
  * https://www.hybridcluster.com/blog/unit-testing-state-machines/
 
+.. code-block:: python
+
   class TurnstileInput(Names):
       FARE_PAID = NamedConstant()
       ARM_UNLOCKED = NamedConstant()
