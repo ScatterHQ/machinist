@@ -96,3 +96,37 @@ Give the code a try (or read it) to see the particular fields these messages
 have.
 """
 
+__all__ = [
+    "IFiniteStateMachine", "IOutputExecutor", "IRichInput",
+    "StateMachineDefinitionError", "ExtraTransitionState",
+    "MissingTransitionState", "ExtraTransitionInput",
+    "MissingTransitionInput", "ExtraTransitionOutput",
+    "MissingTransitionOutput", "ExtraTransitionNextState",
+    "MissingTransitionNextState", "InvalidInitialState",
+    "ExtraInputContext",
+    "UnhandledInput", "IllegalInput", "WrongState",
+
+    "Transition", "TransitionTable", "trivialInput",
+    "constructFiniteStateMachine",
+    "MethodSuffixOutputer", "stateful",
+
+    "LOG_FSM_INITIALIZE",
+    "LOG_FSM_TRANSITION",
+    ]
+
+from ._fsm import (
+    IFiniteStateMachine, IOutputExecutor, IRichInput,
+    StateMachineDefinitionError, ExtraTransitionState,
+    MissingTransitionState, ExtraTransitionInput,
+    MissingTransitionInput, ExtraTransitionOutput,
+    MissingTransitionOutput, ExtraTransitionNextState,
+    MissingTransitionNextState, InvalidInitialState,
+    ExtraInputContext,
+    UnhandledInput, IllegalInput, WrongState,
+
+    Transition, TransitionTable, trivialInput, constructFiniteStateMachine,
+    MethodSuffixOutputer, stateful,
+
+    LOG_FSM_INITIALIZE,
+    LOG_FSM_TRANSITION,
+)
