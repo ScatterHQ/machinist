@@ -1,5 +1,5 @@
 # Copyright Hybrid Logic Ltd.  See LICENSE file for details.
-# -*- test-case-name: hybridcluster.tests.test_fsm -*-
+# -*- test-case-name: machinist.test.test_fsm -*-
 
 """
 Implementation details for machinist's public interface.

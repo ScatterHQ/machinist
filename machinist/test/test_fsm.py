@@ -18,7 +18,7 @@ from twisted.python.util import FancyStrMixin
 from twisted.python.constants import Names, NamedConstant
 from twisted.trial.unittest import TestCase
 
-from hybridcluster.fsm import (
+from machinist import (
     ExtraTransitionState, MissingTransitionState,
     ExtraTransitionInput, MissingTransitionInput,
     ExtraTransitionOutput, MissingTransitionOutput,
