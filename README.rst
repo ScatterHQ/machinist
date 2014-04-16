@@ -39,7 +39,7 @@ put together finite state machines
   )
 
 
-For the rest of this example, see `doc/turnstile.py <https://github.com/hybridlogic/machinist/blob/master/doc/turnstile.py>`_.
+For the rest of this example, see `doc/turnstile.py <https://github.com/hybridcluster/machinist/blob/master/doc/turnstile.py>`_.
 
 For more discussion of the benefits of this style, see:
 
@@ -59,5 +59,5 @@ contributing
 
 See http://github.com/hybridcluster/machinist for development.
 
-.. image:: https://coveralls.io/repos/hybridlogic/machinist/badge.png
-  :target: https://coveralls.io/r/hybridlogic/machinist
+.. image:: https://coveralls.io/repos/hybridcluster/machinist/badge.png
+  :target: https://coveralls.io/r/hybridcluster/machinist

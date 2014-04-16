@@ -24,7 +24,7 @@ setup(
         each time an input is mapped to an output (though the new value may be
         the same as the old value).
         """),
-    url="https://github.com/hybridlogic/machinist",
+    url="https://github.com/hybridcluster/machinist",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
