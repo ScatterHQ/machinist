@@ -96,6 +96,16 @@ class IOutputExecutor(Interface):
     def output(output, context):
         """
         Perform the operations associated with a particular output.
+
+        @param output: The output symbol to execute.  This will always be one
+            of the output symbols defined by the machine this
+            L{IOutputExecutor} is being used with.
+
+        @param context: The input which triggered the output symbol.  The exact
+            input object which is passed for this parameter is determined by
+            the definition of the finite state machine.  See the documentation
+            of L{constructFiniteStateMachine}'s C{inputContext} parameter for
+            details.
         """
 
 
