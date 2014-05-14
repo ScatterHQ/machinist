@@ -506,6 +506,25 @@ class MethodSuffixOutputerTests(TestCase):
         self.assertEqual([(Output.aardvark, context)], animals)
 
 
+    def test_prefix(self):
+        """
+        If a value is given for the optional second L{MethodSuffixOutputer}
+        initializer argument then it is used instead of C{"output_"} as the
+        method dispatch prefix.
+        """
+        animals = []
+
+        class AlternatePrefixWorld(object):
+            def foobar_AARDVARK(self, context):
+                animals.append(context)
+
+        context = object()
+        world = AlternatePrefixWorld()
+        outputer = MethodSuffixOutputer(world, "foobar_")
+        outputer.output(Output.aardvark, context)
+        self.assertEqual([context], animals)
+
+
 
 class IFood(Interface):
     radius = Attribute("The radius of the food (all food is spherical)")

@@ -673,12 +673,18 @@ class MethodSuffixOutputer(object):
         return "<Output / %s>" % (self.original,)
 
 
-    def __init__(self, original):
+    def __init__(self, original, prefix="output_"):
         """
         @param original: Any old object with a bunch of methods using the specified
             method prefix.
+
+        @param prefix: The string prefix which will be used for method
+            dispatch.  For example, if C{"foo_"} is given then to execute the
+            output symbol I{BAR}, C{original.foo_BAR} will be called.
+        @type prefix: L{str}
         """
         self.original = original
+        self.prefix = prefix
         try:
             identifier = self.original.identifier
         except AttributeError:
@@ -697,12 +703,14 @@ class MethodSuffixOutputer(object):
 
     def output(self, output, context):
         """
-        Call the C{output_NAME} method of the wrapped object - where I{NAME} is
-        the name of C{output}.
+        Call the C{prefixNAME} method of the wrapped object - where I{prefix}
+        is C{self.prefix} and I{NAME} is the name of C{output}.
 
         @see: L{IOutputExecutor.output}
         """
-        getattr(self.original, "output_" + output.name.upper())(context)
+        name = self.prefix + output.name.upper()
+        method = getattr(self.original, name)
+        method(context)
 
 
 
