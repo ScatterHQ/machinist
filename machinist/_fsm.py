@@ -645,8 +645,9 @@ class _FiniteStateInterpreter(object):
         given rich input and deliver the resulting outputs to the wrapped
         L{IOutputExecutor}.
 
-        @param input: An instance of one of the rich input types this state
-            machine was initialized with.
+        @param input: An L{IRichInput} provider that must be an instance of
+            one of the rich input types this state machine was initialized
+            with.
 
         @return: The output from the wrapped L{IFiniteStateMachine}.
         """
