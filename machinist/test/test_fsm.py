@@ -6,7 +6,7 @@ Tests for L{machinist}.
 
 from zope.interface import Attribute, Interface, implementer
 from zope.interface.exceptions import DoesNotImplement
-from zope.interface.verify import verifyObject
+from zope.interface.verify import verifyObject, verifyClass
 
 from eliot import MessageType, Logger
 from eliot.testing import (
@@ -393,9 +393,17 @@ class TrivialInputTests(TestCase):
     """
     def test_interface(self):
         """
-        The object returned by L{trivialInput} provides L{IRichInput}.
+        The type returned by L{trivialInput} implements L{IRichInput}.
         """
-        self.assertTrue(verifyObject(IRichInput, trivialInput(Input.apple)))
+        self.assertTrue(verifyClass(IRichInput, trivialInput(Input.apple)))
+
+
+    def test_interface_on_instance(self):
+        """
+        The an instance of the object returned by L{trivialInput} provides
+        L{IRichInput}.
+        """
+        self.assertTrue(verifyObject(IRichInput, trivialInput(Input.apple)()))
 
 
     def test_symbol(self):
