@@ -666,7 +666,6 @@ class MethodSuffixOutputer(object):
     """
     A helper to do simple suffixed-method style output dispatching.
 
-    @ivar original: Any old object with a bunch of C{output_}-prefixed methods.
     @ivar _identifier: The cached identifier of the wrapped object (cached to
         guarantee it never changes).
     """
@@ -675,6 +674,10 @@ class MethodSuffixOutputer(object):
 
 
     def __init__(self, original):
+        """
+        @param original: Any old object with a bunch of methods using the specified
+            method prefix.
+        """
         self.original = original
         try:
             identifier = self.original.identifier
