@@ -370,8 +370,8 @@ class ConstructExceptionTests(TestCase):
     def test_richInputInterface(self):
         """
         L{DoesNotImplement} is raised if a rich input type is given which does
-        not implement the interface required by one of the outputs which can be
-        produced when that input is received.
+        not implement the interface required by one of the outputs which can
+        be produced when that input is received.
         """
         apple = trivialInput(Input.apple)
         transitions = TransitionTable()
@@ -551,6 +551,7 @@ TRANSITIONS = TRANSITIONS.addTransition(
     MoreState.amber, Input.apple, [Output.aardvark], MoreState.blue)
 TRANSITIONS = TRANSITIONS.addTerminalState(MoreState.blue)
 
+
 class FiniteStateMachineTests(TestCase):
     """
     Tests for the L{IFiniteStateMachine} provider returned by
@@ -593,14 +594,27 @@ class FiniteStateMachineTests(TestCase):
 
 
     @validateLogging(assertOutputLogging)
-    def test_output(self, logger):
+    def test_output_from_rich_input(self, logger):
         """
-        L{IFiniteStateMachine.receive} finds the transition for the given input
-        in the machine's current state and returns the corresponding output.
+        L{IFiniteStateMachine.receive} finds the transition for the given
+        rich input in the machine's current state and returns the
+        corresponding output.
         """
         self.fsm.logger = logger
         self.world.logger = logger
         self.assertEqual([Output.aardvark], self.fsm.receive(Gravenstein()))
+
+
+    def test_output_from_symbol_input(self):
+        """
+        L{IFiniteStateMachine.receive} finds the transition for the symbol
+        input in the machine's current state and returns the corresponding
+        output.
+        """
+        self.fsm = constructFiniteStateMachine(
+            Input, Output, MoreState, TRANSITIONS, self.initial,
+            [], {}, MethodSuffixOutputer(self.world))
+        self.assertEqual([Output.aardvark], self.fsm.receive(Input.apple))
 
 
     def assertTransitionLogging(self, logger):
@@ -645,7 +659,7 @@ class FiniteStateMachineTests(TestCase):
         self.assertEqual((MoreState.blue, Input.apple), exc.args)
 
 
-    def test_illegalInput(self):
+    def test_illegalRichInput(self):
         """
         L{IFiniteStateMachine.receive} raises L{IllegalInput} if called with a
         rich input that doesn't map to a symbol in the input alphabet.
@@ -653,6 +667,15 @@ class FiniteStateMachineTests(TestCase):
         banana = trivialInput(MoreInput.banana)
         exc = self.assertRaises(IllegalInput, self.fsm.receive, banana())
         self.assertEqual((MoreInput.banana,), exc.args)
+
+
+    def test_illegalInput(self):
+        """
+        L{IFiniteStateMachine.receive} raises L{IllegalInput} if called with
+        an input that isn't in the input alphabet.
+        """
+        exc = self.assertRaises(IllegalInput, self.fsm.receive, "not symbol")
+        self.assertEqual(("not symbol",), exc.args)
 
 
     def test_inputContext(self):
