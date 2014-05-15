@@ -1,0 +1,1 @@
+trivialInput used to produce a type which provided IRichInput, but an instance of said type would not provide IRichInput.  This has been fixed and now trivialInput produces a type that implements IRichInput, whose instances provide IRichInput.

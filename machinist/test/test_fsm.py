@@ -398,7 +398,7 @@ class TrivialInputTests(TestCase):
         self.assertTrue(verifyClass(IRichInput, trivialInput(Input.apple)))
 
 
-    def test_interface_on_instance(self):
+    def test_interfaceOnInstance(self):
         """
         The an instance of the object returned by L{trivialInput} provides
         L{IRichInput}.

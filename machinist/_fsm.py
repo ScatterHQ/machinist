@@ -5,7 +5,7 @@
 Implementation details for machinist's public interface.
 """
 
-from zope.interface import Attribute, Interface, implementer, provider
+from zope.interface import Attribute, Interface, implementer
 from zope.interface.exceptions import DoesNotImplement
 
 from eliot import Field, ActionType, Logger
@@ -489,7 +489,7 @@ def trivialInput(symbol):
     @return: A new type object usable as a rich input for the given symbol.
     @rtype: L{type}
     """
-    return provider(IRichInput)(implementer(IRichInput))(type(
+    return implementer(IRichInput)(type(
             symbol.name.title(), (FancyStrMixin, object), {
                 "symbol": _symbol(symbol),
                 }))
