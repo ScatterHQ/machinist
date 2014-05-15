@@ -101,11 +101,8 @@ class IOutputExecutor(Interface):
             of the output symbols defined by the machine this
             L{IOutputExecutor} is being used with.
 
-        @param context: The input which triggered the output symbol.  The exact
-            input object which is passed for this parameter is determined by
-            the definition of the finite state machine.  See the documentation
-            of L{constructFiniteStateMachine}'s C{inputContext} parameter for
-            details.
+        @param context: The adapted rich input which triggered the output
+            symbol.
         """
 
 
