@@ -1,5 +1,31 @@
-put together finite state machines
-----------------------------------
+.. image:: https://travis-ci.org/hybridcluster/machinist.png
+  :target: https://travis-ci.org/hybridcluster/machinist
+
+.. image:: https://coveralls.io/repos/hybridcluster/machinist/badge.png
+  :target: https://coveralls.io/r/hybridcluster/machinist
+
+
+For more discussion of the benefits of using finite state machines, see:
+
+ * https://www.hybridcluster.com/blog/what-is-a-state-machine/
+ * https://www.hybridcluster.com/blog/benefits-state-machine/
+ * https://www.hybridcluster.com/blog/unit-testing-state-machines/
+
+
+Installation
+~~~~~~~~~~~~
+
+.. code-block:: console
+
+  $ pip install machinist
+
+
+Defining Inputs, Outputs, and States
+------------------------------------
+
+Inputs, outputs, and states are all :class:`twisted.python.constants.NamedConstant`s.
+Collections of inputs, outputs, and states, are
+:class:`twisted.python.constants.Names`.
 
 .. code-block:: python
 
@@ -18,6 +44,18 @@ put together finite state machines
       UNLOCKED = NamedConstant()
       ACTIVE = NamedConstant()
 
+
+Defining the Transitions
+------------------------
+
+A transition is defined as an input to a state mapped to a series of outputs and the next state.
+
+These transitions are added to a transition table.
+
+Example::
+
+.. code-block:: python
+
   table = TransitionTable()
 
   # Any number of things like this
@@ -27,13 +65,24 @@ put together finite state machines
               ([TurnstileOutput.ENGAGE_LOCK], TurnstileState.ACTIVE),
       })
 
+If an input is received for a particular state for which it is not defined, an :class:`machinist.IllegalInput` would be raised.
+In the example above, if ``FARE_PAID`` is received as an input while the turnstile is in the ``UNLOCKED`` state, :class:`machinist.IllegalInput` will be raised.
+
+
+Putting together the Finite State Machine
+-----------------------------------------
+
+To build an instance of a finite state machine from the transition, pass the  inputs, outputs, states, and table (previously defined) to the function :func:`machinist.constructFiniteStateMachine`.
+
+.. code-block:: python
+
   turnstileFSM = constructFiniteStateMachine(
       inputs=TurnstileInput,
       outputs=TurnstileOutput,
       states=TurnstileState,
       table=table,
       initial=TurnstileState.LOCKED,
-      richInputs={},
+      richInputs=[trivialInput(i) for i in TurnstileInput.iterconstants()]
       inputContext={},
       world=MethodSuffixOutputer(Turnstile(hardware)),
   )
@@ -41,23 +90,18 @@ put together finite state machines
 
 For the rest of this example, see `doc/turnstile.py <https://github.com/hybridcluster/machinist/blob/master/doc/turnstile.py>`_.
 
-For more discussion of the benefits of this style, see:
+Note that `richInputs` must be passed, and it must be a list of `IRichInput` providers mapped to the same input symbols (parameter `inputs`) the FSM is created with.
 
- * https://www.hybridcluster.com/blog/what-is-a-state-machine/
- * https://www.hybridcluster.com/blog/benefits-state-machine/
- * https://www.hybridcluster.com/blog/unit-testing-state-machines/
+`Turnstile` is a class with methods named `output_XXX`, where `XXX` is one of the outputs.
+There should be one such method for each output defined.
 
-installation
-~~~~~~~~~~~~
+_TODO_:  What is inputContext?
 
-.. code-block:: console
 
-  $ pip install machinist
+Transitioning the Finite State Machine
+--------------------------------------
+To provide an input to the FSM, `receive` on the FSM must be called with an instance of an IRichInput provider:
 
-contributing
-~~~~~~~~~~~~
+.. code-block: python
 
-See http://github.com/hybridcluster/machinist for development.
-
-.. image:: https://coveralls.io/repos/hybridcluster/machinist/badge.png
-  :target: https://coveralls.io/r/hybridcluster/machinist
+  turnstileFSM.receive(trivialInput(TurnstileInput.FARE_PAID)())
