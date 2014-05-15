@@ -7,7 +7,6 @@ Implementation details for machinist's public interface.
 
 from zope.interface import Attribute, Interface, implementer
 from zope.interface.exceptions import DoesNotImplement
-from zope.interface.verify import verifyObject
 
 from eliot import Field, ActionType, Logger
 
@@ -565,7 +564,7 @@ class _FiniteStateLogger(proxyForInterface(IFiniteStateMachine, "_fsm")):
 
         @see: L{IFiniteStateMachine.receive}
         """
-        log_info = {"fsm_input": unicode(input)}
+        log_info = {"fsm_input": unicode(input), "fsm_rich_input": u''}
 
         if IRichInput.providedBy(input):
             log_info["fsm_rich_input"] = log_info["fsm_input"]
