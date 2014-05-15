@@ -96,6 +96,13 @@ class IOutputExecutor(Interface):
     def output(output, context):
         """
         Perform the operations associated with a particular output.
+
+        @param output: The output symbol to execute.  This will always be one
+            of the output symbols defined by the machine this
+            L{IOutputExecutor} is being used with.
+
+        @param context: The adapted rich input which triggered the output
+            symbol.
         """
 
 
