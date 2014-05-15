@@ -65,16 +65,16 @@ def main():
     while True:
         if hardware.paymentMade():
             hardware.resetNotification()
-            turnstileFSM.receive(trivialInput(TurnstileInput.FARE_PAID))
+            turnstileFSM.receive(trivialInput(TurnstileInput.FARE_PAID)())
         elif hardware.armTurned():
             hardware.resetNotification()
-            turnstileFSM.receive(trivialInput(TurnstileInput.ARM_TURNED))
+            turnstileFSM.receive(trivialInput(TurnstileInput.ARM_TURNED)())
         elif hardware.finishedLocking():
             hardware.resetNotification()
-            turnstileFSM.receive(trivialInput(TurnstileInput.ARM_LOCKED))
+            turnstileFSM.receive(trivialInput(TurnstileInput.ARM_LOCKED)())
         elif hardware.finishedUnlocking():
             hardware.resetNotification()
-            turnstileFSM.receive(trivialInput(TurnstileInput.ARM_UNLOCKED))
+            turnstileFSM.receive(trivialInput(TurnstileInput.ARM_UNLOCKED)())
         else:
             time.sleep(0.1)
 
