@@ -4,9 +4,49 @@ python:
   - 2.7
   - pypy
 
+env:
+  # Test against the minimum supported version of eliot
+  - ELIOT="minimum"
+
+  # Test against the released version of eliot which pip will choose to
+  # install.
+  - ELIOT="release"
+
+  # Test against master@HEAD version of eliot.
+  - ELIOT="master"
+
+
 install:
   - pip install coveralls coverage
   - python setup.py --version
+
+  # Install the selected eliot version.
+  - |
+    case "${ELIOT}" in
+    minimum)
+        # Generate a simple text file containing the dependencies.
+        python setup.py egg_info
+
+        # Parse what hopefully is the minimum supported eliot version from that text file.
+        # If someone decides to make the dependency "eliot<=1.2.3" then this will break.
+        version="$(grep eliot machinist.egg-info/requires.txt | sed -e 's/[^0-9.]\{1,\}//')"
+
+        # Install exactly that version.
+        pip install eliot=="${version}"
+        ;;
+
+    release)
+        # Nothing to do here.  The `pip install` command that follows will pick
+        # a version based on setup.py.
+        ;;
+
+    master)
+        # Install whatever is HEAD of the default eliot branch.
+        pip install git+https://github.com/hybridcluster/eliot.git
+        ;;
+
+    esac
+
   - pip install -e.
 
 script:
