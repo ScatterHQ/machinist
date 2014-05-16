@@ -44,14 +44,12 @@ LOG_FSM_INITIALIZE = ActionType(
     _system(u"initialize"),
     [FSM_IDENTIFIER, FSM_STATE],
     [FSM_TERMINAL_STATE],
-    [],
     u"A finite state machine was initialized.")
 
 LOG_FSM_TRANSITION = ActionType(
     _system(u"transition"),
     [FSM_IDENTIFIER, FSM_STATE, FSM_RICH_INPUT, FSM_INPUT],
     [FSM_NEXT_STATE, FSM_OUTPUT],
-    [],
     u"A finite state machine received an input made a transition.")
 
 class IFiniteStateMachine(Interface):
@@ -577,10 +575,7 @@ class _FiniteStateLogger(proxyForInterface(IFiniteStateMachine, "_fsm")):
         if self._action is not None and self._isTerminal(self.state):
             self._action.addSuccessFields(
                 fsm_terminal_state=unicode(self.state))
-            # Better API will be available after
-            # https://www.pivotaltracker.com/s/projects/787341/stories/59751070
-            # is done.
-            self._action.finishAfter(succeed(None))
+            self._action.finish()
             self._action = None
 
         return output
