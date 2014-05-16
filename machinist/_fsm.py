@@ -12,7 +12,6 @@ from eliot import Field, ActionType, Logger
 
 from twisted.python.util import FancyStrMixin, FancyEqMixin
 from twisted.python.components import proxyForInterface
-from twisted.internet.defer import succeed
 
 def _system(suffix):
     return u":".join((u"fsm", suffix))
