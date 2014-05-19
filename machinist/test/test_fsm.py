@@ -6,7 +6,7 @@ Tests for L{machinist}.
 
 from zope.interface import Attribute, Interface, implementer
 from zope.interface.exceptions import DoesNotImplement
-from zope.interface.verify import verifyObject
+from zope.interface.verify import verifyObject, verifyClass
 
 from eliot import MessageType, Logger
 from eliot.testing import (
@@ -393,9 +393,17 @@ class TrivialInputTests(TestCase):
     """
     def test_interface(self):
         """
-        The object returned by L{trivialInput} provides L{IRichInput}.
+        The type returned by L{trivialInput} implements L{IRichInput}.
         """
-        self.assertTrue(verifyObject(IRichInput, trivialInput(Input.apple)))
+        self.assertTrue(verifyClass(IRichInput, trivialInput(Input.apple)))
+
+
+    def test_interfaceOnInstance(self):
+        """
+        The an instance of the object returned by L{trivialInput} provides
+        L{IRichInput}.
+        """
+        self.assertTrue(verifyObject(IRichInput, trivialInput(Input.apple)()))
 
 
     def test_symbol(self):
@@ -504,6 +512,25 @@ class MethodSuffixOutputerTests(TestCase):
         outputer = MethodSuffixOutputer(world)
         outputer.output(Output.aardvark, context)
         self.assertEqual([(Output.aardvark, context)], animals)
+
+
+    def test_prefix(self):
+        """
+        If a value is given for the optional second L{MethodSuffixOutputer}
+        initializer argument then it is used instead of C{"output_"} as the
+        method dispatch prefix.
+        """
+        animals = []
+
+        class AlternatePrefixWorld(object):
+            def foobar_AARDVARK(self, context):
+                animals.append(context)
+
+        context = object()
+        world = AlternatePrefixWorld()
+        outputer = MethodSuffixOutputer(world, "foobar_")
+        outputer.output(Output.aardvark, context)
+        self.assertEqual([context], animals)
 
 
 

@@ -59,5 +59,7 @@ contributing
 
 See http://github.com/hybridcluster/machinist for development.
 
+Issues are tracked using https://waffle.io/hybridcluster/machinist.
+
 .. image:: https://coveralls.io/repos/hybridcluster/machinist/badge.png
   :target: https://coveralls.io/r/hybridcluster/machinist

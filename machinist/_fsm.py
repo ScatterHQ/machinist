@@ -5,14 +5,13 @@
 Implementation details for machinist's public interface.
 """
 
-from zope.interface import Attribute, Interface, implementer, provider
+from zope.interface import Attribute, Interface, implementer
 from zope.interface.exceptions import DoesNotImplement
 
 from eliot import Field, ActionType, Logger
 
 from twisted.python.util import FancyStrMixin, FancyEqMixin
 from twisted.python.components import proxyForInterface
-from twisted.internet.defer import succeed
 
 def _system(suffix):
     return u":".join((u"fsm", suffix))
@@ -44,14 +43,12 @@ LOG_FSM_INITIALIZE = ActionType(
     _system(u"initialize"),
     [FSM_IDENTIFIER, FSM_STATE],
     [FSM_TERMINAL_STATE],
-    [],
     u"A finite state machine was initialized.")
 
 LOG_FSM_TRANSITION = ActionType(
     _system(u"transition"),
     [FSM_IDENTIFIER, FSM_STATE, FSM_RICH_INPUT, FSM_INPUT],
     [FSM_NEXT_STATE, FSM_OUTPUT],
-    [],
     u"A finite state machine received an input made a transition.")
 
 class IFiniteStateMachine(Interface):
@@ -496,7 +493,7 @@ def trivialInput(symbol):
     @return: A new type object usable as a rich input for the given symbol.
     @rtype: L{type}
     """
-    return provider(IRichInput)(type(
+    return implementer(IRichInput)(type(
             symbol.name.title(), (FancyStrMixin, object), {
                 "symbol": _symbol(symbol),
                 }))
@@ -577,10 +574,7 @@ class _FiniteStateLogger(proxyForInterface(IFiniteStateMachine, "_fsm")):
         if self._action is not None and self._isTerminal(self.state):
             self._action.addSuccessFields(
                 fsm_terminal_state=unicode(self.state))
-            # Better API will be available after
-            # https://www.pivotaltracker.com/s/projects/787341/stories/59751070
-            # is done.
-            self._action.finishAfter(succeed(None))
+            self._action.finish()
             self._action = None
 
         return output
@@ -652,8 +646,9 @@ class _FiniteStateInterpreter(object):
         given rich input and deliver the resulting outputs to the wrapped
         L{IOutputExecutor}.
 
-        @param input: An instance of one of the rich input types this state
-            machine was initialized with.
+        @param input: An L{IRichInput} provider that must be an instance of
+            one of the rich input types this state machine was initialized
+            with.
 
         @return: The output from the wrapped L{IFiniteStateMachine}.
         """
@@ -673,7 +668,6 @@ class MethodSuffixOutputer(object):
     """
     A helper to do simple suffixed-method style output dispatching.
 
-    @ivar original: Any old object with a bunch of C{output_}-prefixed methods.
     @ivar _identifier: The cached identifier of the wrapped object (cached to
         guarantee it never changes).
     """
@@ -681,8 +675,18 @@ class MethodSuffixOutputer(object):
         return "<Output / %s>" % (self.original,)
 
 
-    def __init__(self, original):
+    def __init__(self, original, prefix="output_"):
+        """
+        @param original: Any old object with a bunch of methods using the specified
+            method prefix.
+
+        @param prefix: The string prefix which will be used for method
+            dispatch.  For example, if C{"foo_"} is given then to execute the
+            output symbol I{BAR}, C{original.foo_BAR} will be called.
+        @type prefix: L{str}
+        """
         self.original = original
+        self.prefix = prefix
         try:
             identifier = self.original.identifier
         except AttributeError:
@@ -701,12 +705,14 @@ class MethodSuffixOutputer(object):
 
     def output(self, output, context):
         """
-        Call the C{output_NAME} method of the wrapped object - where I{NAME} is
-        the name of C{output}.
+        Call the C{prefixNAME} method of the wrapped object - where I{prefix}
+        is C{self.prefix} and I{NAME} is the name of C{output}.
 
         @see: L{IOutputExecutor.output}
         """
-        getattr(self.original, "output_" + output.name.upper())(context)
+        name = self.prefix + output.name.upper()
+        method = getattr(self.original, name)
+        method(context)
 
 
 
