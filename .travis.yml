@@ -7,7 +7,7 @@ python:
 env:
   # Test against the minimum supported version of eliot
   - |
-    ELIOT=eliot=='python -c "from setup import _MINIMUM_ELIOT_VERSION; print _MINIMUM_ELIOT_VERSION"'
+    ELIOT='echo -n "eliot=="; python -c "from setup import _MINIMUM_ELIOT_VERSION; print _MINIMUM_ELIOT_VERSION"'
 
   # Test against the released version of eliot which pip will choose to
   # install.
