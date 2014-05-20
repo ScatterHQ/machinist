@@ -7,45 +7,52 @@ from setuptools import setup
 
 __version__ = "0.1"
 
-setup(
-    name="machinist",
-    version=__version__,
-    packages=["machinist", "machinist.test"],
-    description=cleandoc("""
-        Machinist is a tool for building finite state machines.
-    """),
-    long_description=cleandoc("""
-        A finite state machine maps simple, symbolic inputs to simple, symbolic
-        outputs.  In this context, symbolic means that nothing differentiates
-        the values from each other apart from their identity.
+# For the convenience of the travis configuration, make this information
+# particularly easy to find.  See .travis.yml.
+_MINIMUM_ELIOT_VERSION = "0.4.0"
 
-        The mapping from inputs to outputs also includes definitions for state
-        transitions.  The current state of the machine changes to a new value
-        each time an input is mapped to an output (though the new value may be
-        the same as the old value).
+if __name__ == '__main__':
+    setup(
+        name="machinist",
+        version=__version__,
+        packages=["machinist", "machinist.test"],
+        description=cleandoc("""
+            Machinist is a tool for building finite state machines.
         """),
-    url="https://github.com/hybridcluster/machinist",
-    classifiers=[
-        "Development Status :: 4 - Beta",
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: Apache Software License",
-        "Operating System :: MacOS :: MacOS X",
-        "Operating System :: Microsoft :: Windows",
-        "Operating System :: POSIX",
+        long_description=cleandoc("""
+            A finite state machine maps simple, symbolic inputs to simple, symbolic
+            outputs.  In this context, symbolic means that nothing differentiates
+            the values from each other apart from their identity.
 
-        # General classifiers to indicate "this project supports Python 2" and
-        # "this project supports Python 3".
-        "Programming Language :: Python :: 2",
+            The mapping from inputs to outputs also includes definitions for state
+            transitions.  The current state of the machine changes to a new value
+            each time an input is mapped to an output (though the new value may be
+            the same as the old value).
+            """),
+        url="https://github.com/hybridcluster/machinist",
+        classifiers=[
+            "Development Status :: 4 - Beta",
+            "Intended Audience :: Developers",
+            "License :: OSI Approved :: Apache Software License",
+            "Operating System :: MacOS :: MacOS X",
+            "Operating System :: Microsoft :: Windows",
+            "Operating System :: POSIX",
 
-        # More specific classifiers to indicate more precisely which versions
-        # of those languages the project supports.
-        "Programming Language :: Python :: 2.7",
+            # General classifiers to indicate "this project supports Python 2" and
+            # "this project supports Python 3".
+            "Programming Language :: Python :: 2",
 
-        "Programming Language :: Python :: Implementation :: CPython",
-        "Programming Language :: Python :: Implementation :: PyPy",
+            # More specific classifiers to indicate more precisely which versions
+            # of those languages the project supports.
+            "Programming Language :: Python :: 2.7",
 
-        "Topic :: Software Development :: Libraries :: Python Modules",
-        ],
-    install_requires=["zope.interface>=3.6.0", "twisted>=13.1", "eliot>=0.4.0"],
-    test_suite="machinist",
-    )
+            "Programming Language :: Python :: Implementation :: CPython",
+            "Programming Language :: Python :: Implementation :: PyPy",
+
+            "Topic :: Software Development :: Libraries :: Python Modules",
+            ],
+        install_requires=[
+            "zope.interface>=3.6.0", "twisted>=13.1",
+            "eliot>=" + _MINIMUM_ELIOT_VERSION],
+        test_suite="machinist",
+        )
