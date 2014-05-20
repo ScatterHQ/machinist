@@ -6,14 +6,17 @@ python:
 
 env:
   # Test against the minimum supported version of eliot
-  - ELIOT=eliot==$(python -c 'from setup import _MINIMUM_ELIOT_VERSION; print _MINIMUM_ELIOT_VERSION')
+  - |
+    ELIOT="eliot==$(python -c 'from setup import _MINIMUM_ELIOT_VERSION; print _MINIMUM_ELIOT_VERSION')"
 
   # Test against the released version of eliot which pip will choose to
   # install.
-  - ELIOT=eliot
+  - |
+    ELIOT="eliot"
 
   # Test against master@HEAD version of eliot.
-  - ELIOT=git+https://github.com/hybridcluster/eliot.git
+  - |
+    ELIOT="git+https://github.com/hybridcluster/eliot.git"
 
 
 install:
