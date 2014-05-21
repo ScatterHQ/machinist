@@ -88,15 +88,16 @@ To build an instance of a finite state machine from the transition, pass the inp
 
 For the rest of this example, see `doc/turnstile.py <https://github.com/hybridcluster/machinist/blob/master/doc/turnstile.py>`_.
 
-Note that `richInputs` must be passed, and it must be a list of `IRichInput` providers mapped to the same input symbols (parameter `inputs`) the FSM is created with.
+Note that ``richInputs`` must be passed and it must be a list of ``IRichInput`` providers mapped to the same input symbols (parameter ``inputs``) the FSM is created with.
 
-`Turnstile` is a class with methods named `output_XXX`, where `XXX` is one of the outputs.
+``Turnstile`` is a class with methods named ``output_XXX``, where ``XXX`` is one of the outputs.
 There should be one such method for each output defined.
 
 
 Transitioning the Finite State Machine
 --------------------------------------
-To provide an input to the FSM, `receive` on the FSM must be called with an instance of an IRichInput provider.
+
+To provide an input to the FSM, ``receive`` on the FSM must be called with an instance of an ``IRichInput`` provider.
 
 .. code-block:: python
 
