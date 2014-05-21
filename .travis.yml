@@ -4,10 +4,28 @@ python:
   - 2.7
   - pypy
 
+env:
+  # Test against the minimum supported version of eliot
+  - |
+    ELIOT='echo -n "eliot=="; python -c "from setup import _MINIMUM_ELIOT_VERSION; print _MINIMUM_ELIOT_VERSION"'
+
+  # Test against the released version of eliot which pip will choose to
+  # install.
+  - |
+    ELIOT='echo eliot'
+
+  # Test against master@HEAD version of eliot.
+  - |
+    ELIOT='echo git+https://github.com/hybridcluster/eliot.git'
+
+
 install:
   - pip install coveralls coverage
   - python setup.py --version
-  - pip install -e.
+
+  # Install the selected eliot version.
+  - pip install "$(eval ${ELIOT})"
+  - pip install -e .
 
 script:
   - coverage run --branch --source machinist $(type -p trial) machinist
