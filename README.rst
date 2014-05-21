@@ -93,8 +93,6 @@ Note that `richInputs` must be passed, and it must be a list of `IRichInput` pro
 `Turnstile` is a class with methods named `output_XXX`, where `XXX` is one of the outputs.
 There should be one such method for each output defined.
 
-_TODO_:  What is inputContext?
-
 
 Transitioning the Finite State Machine
 --------------------------------------
