@@ -24,9 +24,8 @@ Installation
 Defining Inputs, Outputs, and States
 ------------------------------------
 
-Inputs, outputs, and states are all :class:`twisted.python.constants.NamedConstant`s.
-Collections of inputs, outputs, and states, are
-:class:`twisted.python.constants.Names`.
+Inputs, outputs, and states are all ``twisted.python.constants.NamedConstant``.
+Collections of inputs, outputs, and states are ``twisted.python.constants.Names``.
 
 .. code-block:: python
 
@@ -66,14 +65,14 @@ Example::
               ([TurnstileOutput.ENGAGE_LOCK], TurnstileState.ACTIVE),
       })
 
-If an input is received for a particular state for which it is not defined, an :class:`machinist.IllegalInput` would be raised.
-In the example above, if ``FARE_PAID`` is received as an input while the turnstile is in the ``UNLOCKED`` state, :class:`machinist.IllegalInput` will be raised.
+If an input is received for a particular state for which it is not defined, an ``machinist.IllegalInput`` would be raised.
+In the example above, if ``FARE_PAID`` is received as an input while the turnstile is in the ``UNLOCKED`` state, ``machinist.IllegalInput`` will be raised.
 
 
 Putting together the Finite State Machine
 -----------------------------------------
 
-To build an instance of a finite state machine from the transition, pass the  inputs, outputs, states, and table (previously defined) to the function :func:`machinist.constructFiniteStateMachine`.
+To build an instance of a finite state machine from the transition, pass the inputs, outputs, states, and table (previously defined) to the function ``machinist.constructFiniteStateMachine``.
 
 .. code-block:: python
 
