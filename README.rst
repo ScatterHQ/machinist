@@ -10,6 +10,7 @@ For more discussion of the benefits of using finite state machines, see:
  * https://www.hybridcluster.com/blog/what-is-a-state-machine/
  * https://www.hybridcluster.com/blog/benefits-state-machine/
  * https://www.hybridcluster.com/blog/unit-testing-state-machines/
+ * http://www.hybridcluster.com/blog/isolating-side-effects-state-machines/
 
 
 Installation
