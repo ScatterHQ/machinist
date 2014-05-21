@@ -52,8 +52,6 @@ A transition is defined as an input to a state mapped to a series of outputs and
 
 These transitions are added to a transition table.
 
-Example::
-
 .. code-block:: python
 
   table = TransitionTable()
@@ -100,8 +98,8 @@ _TODO_:  What is inputContext?
 
 Transitioning the Finite State Machine
 --------------------------------------
-To provide an input to the FSM, `receive` on the FSM must be called with an instance of an IRichInput provider:
+To provide an input to the FSM, `receive` on the FSM must be called with an instance of an IRichInput provider.
 
-.. code-block: python
+.. code-block:: python
 
   turnstileFSM.receive(trivialInput(TurnstileInput.FARE_PAID)())
