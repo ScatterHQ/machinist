@@ -5,14 +5,6 @@
   :target: https://coveralls.io/r/hybridcluster/machinist
 
 
-For more discussion of the benefits of using finite state machines, see:
-
- * https://www.hybridcluster.com/blog/what-is-a-state-machine/
- * https://www.hybridcluster.com/blog/benefits-state-machine/
- * https://www.hybridcluster.com/blog/unit-testing-state-machines/
- * https://www.hybridcluster.com/blog/isolating-side-effects-state-machines/
-
-
 Installation
 ~~~~~~~~~~~~
 
@@ -85,9 +77,6 @@ To build an instance of a finite state machine from the transition, pass the inp
       world=MethodSuffixOutputer(Turnstile(hardware)),
   )
 
-
-For the rest of this example, see `doc/turnstile.py <https://github.com/hybridcluster/machinist/blob/master/doc/turnstile.py>`_.
-
 Note that ``richInputs`` must be passed and it must be a list of ``IRichInput`` providers mapped to the same input symbols (parameter ``inputs``) the FSM is created with.
 
 ``Turnstile`` is a class with methods named ``output_XXX``, where ``XXX`` is one of the outputs.
@@ -102,3 +91,16 @@ To provide an input to the FSM, ``receive`` on the FSM must be called with an in
 .. code-block:: python
 
   turnstileFSM.receive(trivialInput(TurnstileInput.FARE_PAID)())
+
+
+Further Reading
+---------------
+
+For the rest of the example code, see `doc/turnstile.py <https://github.com/hybridcluster/machinist/blob/master/doc/turnstile.py>`_.
+
+For more discussion of the benefits of using finite state machines, see:
+
+ * https://www.hybridcluster.com/blog/what-is-a-state-machine/
+ * https://www.hybridcluster.com/blog/benefits-state-machine/
+ * https://www.hybridcluster.com/blog/unit-testing-state-machines/
+ * https://www.hybridcluster.com/blog/isolating-side-effects-state-machines/
