@@ -44,10 +44,10 @@ class Turnstile(object):
     def __init__(self, hardware):
         self._hardware = hardware
 
-    def output_ENGAGE_LOCK(self):
+    def output_ENGAGE_LOCK(self, engage):
         self._hardware.engageLock()
 
-    def output_DISENGAGE_LOCK(self):
+    def output_DISENGAGE_LOCK(self, disengage):
         self._hardware.disengageLock()
 
 def main():

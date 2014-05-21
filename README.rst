@@ -4,6 +4,9 @@
 .. image:: https://coveralls.io/repos/hybridcluster/machinist/badge.png
   :target: https://coveralls.io/r/hybridcluster/machinist
 
+.. image:: https://coveralls.io/repos/hybridcluster/machinist/badge.png
+  :target: https://coveralls.io/r/hybridcluster/machinist
+
 
 Installation
 ~~~~~~~~~~~~
