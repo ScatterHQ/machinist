@@ -18,13 +18,16 @@ env:
   - |
     ELIOT='echo git+https://github.com/hybridcluster/eliot.git'
 
+  # Test without any version of eliot.
+  - |
+    NO_ELIOT=''
 
 install:
   - pip install coveralls coverage
   - python setup.py --version
 
   # Install the selected eliot version.
-  - pip install "$(eval ${ELIOT})"
+  - [ -v ELIOT ] && pip install "$(eval ${ELIOT})"
   - pip install -e .
 
 script:
