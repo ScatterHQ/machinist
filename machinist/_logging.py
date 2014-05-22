@@ -1,6 +1,18 @@
 # Copyright Hybrid Logic Ltd.  See LICENSE file for details.
 # -*- test-case-name: machinist -*-
 
+"""
+Eliot-based logging functionality for machinist.
+"""
+
+__all__ = [
+    "LOG_FSM_INITIALIZE", "LOG_FSM_TRANSITION",
+
+    "FiniteStateLogger",
+
+    "Field", "ActionType", "Logger",
+]
+
 from twisted.python.components import proxyForInterface
 
 from eliot import __version__

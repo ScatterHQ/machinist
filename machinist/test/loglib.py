@@ -1,3 +1,13 @@
+# Copyright Hybrid Logic Ltd.  See LICENSE file for details.
+
+"""
+Log-related testing helpers.
+
+Eliot is an optional dependency.  This module provides a point of indirection
+so that the rest of the test suite can ignore the details of how to work
+whether Eliot is installed or not.
+"""
+
 __all__ = [
     "MessageType", "Logger", "LoggedAction", "LoggedMessage",
 

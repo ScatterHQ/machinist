@@ -1,6 +1,14 @@
 # Copyright Hybrid Logic Ltd.  See LICENSE file for details.
 # -*- test-case-name: machinist -*-
 
+"""
+Interface definitions for machinist.
+"""
+
+__all__ = [
+    "IFiniteStateMachine", "IOutputExecutor", "IRichInput",
+]
+
 from zope.interface import Attribute, Interface
 
 
