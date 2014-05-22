@@ -23,8 +23,9 @@ FSM_IDENTIFIER = Field.forTypes(
 FSM_STATE = Field.forTypes(
     u"fsm_state", [unicode], u"The state of the FSM prior to the transition.")
 FSM_RICH_INPUT = Field.forTypes(
-    u"fsm_rich_input", [unicode],
-    u"The string representation of the rich input delivered to the FSM.")
+    u"fsm_rich_input", [unicode, None],
+    (u"The string representation of the rich input delivered to the FSM, "
+     u"or None, if there was no rich input."))
 FSM_INPUT = Field.forTypes(
     u"fsm_input", [unicode],
     u"The string representation of the input symbol delivered to the FSM.")
@@ -564,17 +565,19 @@ class _FiniteStateLogger(proxyForInterface(IFiniteStateMachine, "_fsm")):
 
         @see: L{IFiniteStateMachine.receive}
         """
-        log_info = {"fsm_input": unicode(input), "fsm_rich_input": u''}
-
         if IRichInput.providedBy(input):
-            log_info["fsm_rich_input"] = log_info["fsm_input"]
-            log_info["fsm_input"] = unicode(input.symbol())
+            richInput = unicode(input)
+            symbolInput = unicode(input.symbol())
+        else:
+            richInput = None
+            symbolInput = unicode(input)
 
         action = LOG_FSM_TRANSITION(
             self.logger,
             fsm_identifier=self.identifier,
             fsm_state=unicode(self.state),
-            **log_info)
+            fsm_rich_input=richInput,
+            fsm_input=symbolInput)
 
         with action as theAction:
             output = super(_FiniteStateLogger, self).receive(input)

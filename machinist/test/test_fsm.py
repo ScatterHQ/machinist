@@ -594,7 +594,7 @@ class FiniteStateMachineTests(TestCase):
 
 
     @validateLogging(assertOutputLogging)
-    def test_output_from_rich_input(self, logger):
+    def test_outputFromRichInput(self, logger):
         """
         L{IFiniteStateMachine.receive} finds the transition for the given rich
         input in the machine's current state and returns the corresponding
@@ -605,7 +605,8 @@ class FiniteStateMachineTests(TestCase):
         self.assertEqual([Output.aardvark], self.fsm.receive(Gravenstein()))
 
 
-    def test_output_from_symbol_input(self):
+    @validateLogging(assertOutputLogging)
+    def test_outputFromSymbolInput(self, logger):
         """
         L{IFiniteStateMachine.receive} finds the transition for the symbol
         input in the machine's current state and returns the corresponding
@@ -613,7 +614,10 @@ class FiniteStateMachineTests(TestCase):
         """
         self.fsm = constructFiniteStateMachine(
             Input, Output, MoreState, TRANSITIONS, self.initial,
-            [], {}, MethodSuffixOutputer(self.world))
+            [Gravenstein], {}, MethodSuffixOutputer(self.world))
+
+        self.fsm.logger = logger
+        self.world.logger = logger
         self.assertEqual([Output.aardvark], self.fsm.receive(Input.apple))
 
 
@@ -842,7 +846,7 @@ class FiniteStateMachineLoggingTests(TestCase):
             {u"fsm_identifier": u"<AnimalWorld>",
              u"fsm_state": u"<MoreState=amber>",
              u"fsm_input": u"<Input=apple>",
-             u"fsm_rich_input": unicode(richInput)
+             u"fsm_rich_input": richInput
              })
         self.assertTrue(loggedTransition.succeeded)
         assertContainsFields(self, loggedTransition.endMessage,
@@ -851,7 +855,7 @@ class FiniteStateMachineLoggingTests(TestCase):
                               })
 
 
-    @validateLogging(assertTransitionLogging, "")
+    @validateLogging(assertTransitionLogging, None)
     def test_nextStateGivenSymbolInput(self, logger):
         """
         When L{IFiniteStateMachine.receive} changes
@@ -864,7 +868,7 @@ class FiniteStateMachineLoggingTests(TestCase):
         fsm.receive(Input.apple)
 
 
-    @validateLogging(assertTransitionLogging, "<Gravenstein>")
+    @validateLogging(assertTransitionLogging, u"<Gravenstein>")
     def test_nextStateGivenRichInput(self, logger):
         """
         When L{IFiniteStateMachine.receive} changes
