@@ -616,7 +616,7 @@ class _FiniteStateLogger(proxyForInterface(IFiniteStateMachine, "_fsm")):
 class _FiniteStateInterpreter(object):
     """
     A L{_FiniteStateInterpreter} translates between the "real world" - which
-    has symbolc or rich inputs and non-pure outputs - and a finite state
+    has symbolic or rich inputs and non-pure outputs - and a finite state
     machine which accepts only symbolic inputs and produces only symbolic
     outputs.
 
@@ -654,7 +654,7 @@ class _FiniteStateInterpreter(object):
     def receive(self, input):
         """
         Deliver an input symbol to the wrapped L{IFiniteStateMachine} from the
-        given input, which may be a rich input, and deliver the resulting
+        given input, which may be symbolic or rich, and deliver the resulting
         outputs to the wrapped L{IOutputExecutor}.
 
         @param input: An input symbol or an L{IRichInput} provider that must
