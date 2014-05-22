@@ -8,12 +8,18 @@ Implementation details for machinist's public interface.
 from zope.interface import implementer
 from zope.interface.exceptions import DoesNotImplement
 
-from eliot import Logger
 
 from twisted.python.util import FancyStrMixin, FancyEqMixin
 
 from ._interface import IFiniteStateMachine, IOutputExecutor, IRichInput
-from ._logging import FiniteStateLogger
+
+try:
+    from eliot import Logger
+except ImportError:
+    LOGGER = None
+else:
+    from ._logging import FiniteStateLogger
+    LOGGER = Logger()
 
 
 class StateMachineDefinitionError(Exception):
@@ -246,7 +252,7 @@ def _missingExtraCheck(given, required, extraException, missingException):
 
 def constructFiniteStateMachine(inputs, outputs, states, table, initial,
                                 richInputs, inputContext, world,
-                                logger=Logger()):
+                                logger=LOGGER):
     """
     Construct a new finite state machine from a definition of its states.
 
@@ -317,10 +323,12 @@ def constructFiniteStateMachine(inputs, outputs, states, table, initial,
 
     fsm = _FiniteStateMachine(inputs, outputs, states, table, initial)
     executor = IOutputExecutor(world)
-    return FiniteStateLogger(
-        _FiniteStateInterpreter(
-            tuple(richInputs), inputContext, fsm, executor),
-        logger, executor.identifier())
+    interpreter = _FiniteStateInterpreter(
+        tuple(richInputs), inputContext, fsm, executor)
+    if logger is not None:
+        interpreter = FiniteStateLogger(
+            interpreter, logger, executor.identifier())
+    return interpreter
 
 
 
@@ -442,6 +450,17 @@ class _FiniteStateMachine(object):
         return transition.output
 
 
+    def _isTerminal(self, state):
+        # This is private with the idea that maybe terminal should be defined
+        # differently eventually - perhaps by accepting an explicit set of
+        # terminal states in constructFiniteStateMachine.
+        # https://www.pivotaltracker.com/story/show/59999580
+        return all(
+            transition.output == [] and transition.nextState == state
+            for (input, transition)
+            in self.table[state].iteritems())
+
+
 
 @implementer(IFiniteStateMachine)
 class _FiniteStateInterpreter(object):
@@ -507,6 +526,10 @@ class _FiniteStateInterpreter(object):
             adapter = self._inputContext.get(output, lambda o: o)
             self._world.output(output, adapter(input))
         return outputs
+
+
+    def _isTerminal(self, state):
+        return self._fsm._isTerminal(state)
 
 
 

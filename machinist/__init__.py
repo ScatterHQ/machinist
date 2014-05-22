@@ -118,10 +118,13 @@ from ._interface import (
     IFiniteStateMachine, IOutputExecutor, IRichInput,
 )
 
-from ._logging import (
-    LOG_FSM_INITIALIZE,
-    LOG_FSM_TRANSITION,
-)
+try:
+    from ._logging import (
+        LOG_FSM_INITIALIZE,
+        LOG_FSM_TRANSITION,
+    )
+except ImportError:
+    LOG_FSM_INITIALIZE = LOG_FSM_TRANSITION = None
 
 from ._fsm import (
     StateMachineDefinitionError, ExtraTransitionState,

@@ -104,14 +104,6 @@ class FiniteStateLogger(proxyForInterface(IFiniteStateMachine, "_fsm")):
 
         @rtype: L{bool}
         """
-        # This only works with _FiniteStateMachine not with arbitrary
-        # IFiniteStateMachine since these attributes aren't part of the
-        # interface.  This is private with the idea that maybe terminal should
-        # be defined differently eventually - perhaps by accepting an explicit
-        # set of terminal states in constructFiniteStateMachine.
-        # https://www.pivotaltracker.com/story/show/59999580
-        return all(
-            transition.output == [] and transition.nextState == state
-            for (input, transition)
-            in self._fsm._fsm.table[state].iteritems())
-
+        # This only works with _FiniteStateMachine since it uses a private
+        # method of that type.
+        return self._fsm._isTerminal(state)
