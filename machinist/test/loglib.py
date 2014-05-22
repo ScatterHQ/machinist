@@ -7,7 +7,9 @@ __all__ = [
 ]
 
 try:
-    __import__("eliot")
+    from eliot import __version__
+    if tuple(int(part) for part in __version__.split(".")[:2]) < (0, 4):
+        raise ImportError("eliot %s is too old" % (__version__,))
 except ImportError as e:
     class MessageType(object):
         def __init__(self, *args, **kwargs):

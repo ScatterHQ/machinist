@@ -3,7 +3,12 @@
 
 from twisted.python.components import proxyForInterface
 
-from eliot import Field, ActionType
+from eliot import __version__
+
+if tuple(int(part) for part in __version__.split(".")[:2]) < (0, 4):
+    raise ImportError("eliot version %s is too old for machinist")
+
+from eliot import Field, ActionType, Logger
 
 from ._interface import IFiniteStateMachine, IRichInput
 

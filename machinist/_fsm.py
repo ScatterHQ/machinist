@@ -14,11 +14,10 @@ from twisted.python.util import FancyStrMixin, FancyEqMixin
 from ._interface import IFiniteStateMachine, IOutputExecutor, IRichInput
 
 try:
-    from eliot import Logger
+    from ._logging import Logger, FiniteStateLogger
 except ImportError:
     LOGGER = None
 else:
-    from ._logging import FiniteStateLogger
     LOGGER = Logger()
 
 
