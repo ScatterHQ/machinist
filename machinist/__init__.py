@@ -118,6 +118,11 @@ from ._interface import (
     IFiniteStateMachine, IOutputExecutor, IRichInput,
 )
 
+from ._logging import (
+    LOG_FSM_INITIALIZE,
+    LOG_FSM_TRANSITION,
+)
+
 from ._fsm import (
     StateMachineDefinitionError, ExtraTransitionState,
     MissingTransitionState, ExtraTransitionInput,
@@ -129,7 +134,5 @@ from ._fsm import (
 
     Transition, TransitionTable, trivialInput, constructFiniteStateMachine,
     MethodSuffixOutputer, stateful,
-
-    LOG_FSM_INITIALIZE,
-    LOG_FSM_TRANSITION,
 )
+
