@@ -621,12 +621,49 @@ class FiniteStateMachineTests(TestCase):
         self.assertEqual([Output.aardvark], self.fsm.receive(Input.apple))
 
 
-    def test_nextState(self):
+    def assertTransitionLogging(self, logger, richInput):
+        """
+        State transitions by L{IFiniteStateMachine} are logged.
+        """
+        loggedTransition = LoggedAction.ofType(
+            logger.messages, LOG_FSM_TRANSITION)[0]
+        assertContainsFields(
+            self, loggedTransition.startMessage,
+            {u"fsm_identifier": u"<AnimalWorld>",
+             u"fsm_state": u"<MoreState=amber>",
+             u"fsm_input": u"<Input=apple>",
+             u"fsm_rich_input": richInput
+             })
+        self.assertTrue(loggedTransition.succeeded)
+        assertContainsFields(self, loggedTransition.endMessage,
+                             {u"fsm_next_state": u"<MoreState=blue>",
+                              u"fsm_output": [u"<Output=aardvark>"],
+                              })
+
+
+    @validateLogging(assertTransitionLogging, None)
+    def test_nextStateGivenSymbolInput(self, logger):
         """
         L{IFiniteStateMachine.receive} changes L{IFiniteStateMachine.state} to
-        the next state defined by the transition for the given input in the
-        machine's current state.
+        the next state defined for the given symbolic input in the machine's
+        current state.
         """
+        self.fsm = constructFiniteStateMachine(
+            Input, Output, MoreState, TRANSITIONS, MoreState.amber,
+            [Gravenstein], {}, MethodSuffixOutputer(AnimalWorld([])), logger)
+        self.fsm.logger = logger
+        self.fsm.receive(Input.apple)
+        self.assertEqual(MoreState.blue, self.fsm.state)
+
+
+    @validateLogging(assertTransitionLogging, u"<Gravenstein>")
+    def test_nextStateGivenRichInput(self, logger):
+        """
+        L{IFiniteStateMachine.receive} changes L{IFiniteStateMachine.state} to
+        the next state defined for the given rich input in the machine's
+        current state.
+        """
+        self.fsm.logger = logger
         self.fsm.receive(Gravenstein())
         self.assertEqual(MoreState.blue, self.fsm.state)
 
@@ -834,53 +871,6 @@ class FiniteStateMachineLoggingTests(TestCase):
                 msg for msg in logger.messages[howMany:]
                 if msg[u"action_type"] == u"fsm:initialize"])
 
-
-    def assertTransitionLogging(self, logger, richInput):
-        """
-        State transitions by L{IFiniteStateMachine} are logged.
-        """
-        loggedTransition = LoggedAction.ofType(
-            logger.messages, LOG_FSM_TRANSITION)[0]
-        assertContainsFields(
-            self, loggedTransition.startMessage,
-            {u"fsm_identifier": u"<AnimalWorld>",
-             u"fsm_state": u"<MoreState=amber>",
-             u"fsm_input": u"<Input=apple>",
-             u"fsm_rich_input": richInput
-             })
-        self.assertTrue(loggedTransition.succeeded)
-        assertContainsFields(self, loggedTransition.endMessage,
-                             {u"fsm_next_state": u"<MoreState=blue>",
-                              u"fsm_output": [u"<Output=aardvark>"],
-                              })
-
-
-    @validateLogging(assertTransitionLogging, None)
-    def test_nextStateGivenSymbolInput(self, logger):
-        """
-        When L{IFiniteStateMachine.receive} changes
-        L{IFiniteStateMachine.state} to the next state for the given symbol
-        input, the transition is logged with the symbol input.
-        """
-        fsm = constructFiniteStateMachine(
-            Input, Output, MoreState, TRANSITIONS, MoreState.amber,
-            [Gravenstein], {}, MethodSuffixOutputer(AnimalWorld([])), logger)
-        fsm.receive(Input.apple)
-
-
-    @validateLogging(assertTransitionLogging, u"<Gravenstein>")
-    def test_nextStateGivenRichInput(self, logger):
-        """
-        When L{IFiniteStateMachine.receive} changes
-        L{IFiniteStateMachine.state} to the next state for the given rich
-        input, the transition is logged with the rich input as well as the
-        symbol input.
-        """
-        fsm = constructFiniteStateMachine(
-            Input, Output, MoreState, TRANSITIONS, MoreState.amber,
-            [Gravenstein], {Output.aardvark: IFood},
-            MethodSuffixOutputer(AnimalWorld([])), logger)
-        fsm.receive(Gravenstein())
 
 
 class Restricted(object):
