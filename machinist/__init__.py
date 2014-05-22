@@ -114,8 +114,11 @@ __all__ = [
     "LOG_FSM_TRANSITION",
     ]
 
-from ._fsm import (
+from ._interface import (
     IFiniteStateMachine, IOutputExecutor, IRichInput,
+)
+
+from ._fsm import (
     StateMachineDefinitionError, ExtraTransitionState,
     MissingTransitionState, ExtraTransitionInput,
     MissingTransitionInput, ExtraTransitionOutput,
