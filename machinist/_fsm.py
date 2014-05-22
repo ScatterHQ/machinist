@@ -480,7 +480,7 @@ def _symbol(which):
 
 def trivialInput(symbol):
     """
-    Create a new L{IRichInput} provider for the given input symbol.
+    Create a new L{IRichInput} implementation for the given input symbol.
 
     This creates a new type object and is intended to be used at module scope
     to define rich input types.  Generally, only one use per symbol should be
@@ -616,8 +616,9 @@ class _FiniteStateLogger(proxyForInterface(IFiniteStateMachine, "_fsm")):
 class _FiniteStateInterpreter(object):
     """
     A L{_FiniteStateInterpreter} translates between the "real world" - which
-    has maybe rich inputs and non-pure outputs - and a finite state machine
-    which accepts only symbolic inputs and produces only symbolic outputs.
+    has symbolc or rich inputs and non-pure outputs - and a finite state
+    machine which accepts only symbolic inputs and produces only symbolic
+    outputs.
 
     @ivar _richInputs: All the types of rich inputs that are allowed.
     @type _richInputs: L{tuple} of L{type}

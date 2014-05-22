@@ -370,8 +370,8 @@ class ConstructExceptionTests(TestCase):
     def test_richInputInterface(self):
         """
         L{DoesNotImplement} is raised if a rich input type is given which does
-        not implement the interface required by one of the outputs which can
-        be produced when that input is received.
+        not implement the interface required by one of the outputs which can be
+        produced when that input is received.
         """
         apple = trivialInput(Input.apple)
         transitions = TransitionTable()
@@ -596,9 +596,9 @@ class FiniteStateMachineTests(TestCase):
     @validateLogging(assertOutputLogging)
     def test_output_from_rich_input(self, logger):
         """
-        L{IFiniteStateMachine.receive} finds the transition for the given
-        rich input in the machine's current state and returns the
-        corresponding output.
+        L{IFiniteStateMachine.receive} finds the transition for the given rich
+        input in the machine's current state and returns the corresponding
+        output.
         """
         self.fsm.logger = logger
         self.world.logger = logger
