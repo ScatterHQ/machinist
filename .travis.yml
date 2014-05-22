@@ -27,19 +27,28 @@ env:
     NO_ELIOT=''
 
 install:
-  - pip install coveralls coverage
-  - python setup.py --version
+  - |
+    pip install coveralls coverage
+
+  - |
+    python setup.py --version
 
   # Install the selected eliot version.
-  - [ -v ELIOT ] && pip install "$(eval ${ELIOT})"
-  - pip install -e .
+  - |
+    [ -v ELIOT ] && pip install "$(eval ${ELIOT})"
+
+  - |
+    pip install -e .
 
 script:
-  - coverage run --branch --source machinist $(type -p trial) machinist
-  - coverage report -m
+  - |
+    coverage run --branch --source machinist $(type -p trial) machinist
+  - |
+    coverage report -m
 
 after_success:
-  - coveralls
+  - |
+    coveralls
 
 notifications:
   email: false
