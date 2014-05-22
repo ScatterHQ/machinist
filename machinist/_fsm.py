@@ -23,8 +23,9 @@ FSM_IDENTIFIER = Field.forTypes(
 FSM_STATE = Field.forTypes(
     u"fsm_state", [unicode], u"The state of the FSM prior to the transition.")
 FSM_RICH_INPUT = Field.forTypes(
-    u"fsm_rich_input", [unicode],
-    u"The string representation of the rich input delivered to the FSM.")
+    u"fsm_rich_input", [unicode, None],
+    (u"The string representation of the rich input delivered to the FSM, "
+     u"or None, if there was no rich input."))
 FSM_INPUT = Field.forTypes(
     u"fsm_input", [unicode],
     u"The string representation of the input symbol delivered to the FSM.")
@@ -531,6 +532,10 @@ class _FiniteStateMachine(object):
             raise ValueError(
                 "FiniteStateMachine has no transition table for state %r!" % (
                     self.state,))
+
+        if input not in self.inputs.iterconstants():
+            raise IllegalInput(input)
+
         try:
             transition = current[input]
         except KeyError:
@@ -560,12 +565,20 @@ class _FiniteStateLogger(proxyForInterface(IFiniteStateMachine, "_fsm")):
 
         @see: L{IFiniteStateMachine.receive}
         """
+        if IRichInput.providedBy(input):
+            richInput = unicode(input)
+            symbolInput = unicode(input.symbol())
+        else:
+            richInput = None
+            symbolInput = unicode(input)
+
         action = LOG_FSM_TRANSITION(
             self.logger,
             fsm_identifier=self.identifier,
             fsm_state=unicode(self.state),
-            fsm_rich_input=unicode(input),
-            fsm_input=unicode(input.symbol()))
+            fsm_rich_input=richInput,
+            fsm_input=symbolInput)
+
         with action as theAction:
             output = super(_FiniteStateLogger, self).receive(input)
             theAction.addSuccessFields(
@@ -606,8 +619,9 @@ class _FiniteStateLogger(proxyForInterface(IFiniteStateMachine, "_fsm")):
 class _FiniteStateInterpreter(object):
     """
     A L{_FiniteStateInterpreter} translates between the "real world" - which
-    has rich inputs and non-pure outputs - and a finite state machine which
-    accepts only symbolic inputs and produces only symbolic outputs.
+    has symbolic or rich inputs and non-pure outputs - and a finite state
+    machine which accepts only symbolic inputs and produces only symbolic
+    outputs.
 
     @ivar _richInputs: All the types of rich inputs that are allowed.
     @type _richInputs: L{tuple} of L{type}
@@ -643,19 +657,24 @@ class _FiniteStateInterpreter(object):
     def receive(self, input):
         """
         Deliver an input symbol to the wrapped L{IFiniteStateMachine} from the
-        given rich input and deliver the resulting outputs to the wrapped
-        L{IOutputExecutor}.
+        given input, which may be symbolic or rich, and deliver the resulting
+        outputs to the wrapped L{IOutputExecutor}.
 
-        @param input: An L{IRichInput} provider that must be an instance of
-            one of the rich input types this state machine was initialized
-            with.
+        @param input: An input symbol or an L{IRichInput} provider that must
+            be an instance of one of the rich input types this state machine
+            was initialized with.
 
         @return: The output from the wrapped L{IFiniteStateMachine}.
         """
-        symbol = input.symbol()
-        if not isinstance(input, self._richInputs):
-            raise IllegalInput(symbol)
-        outputs = self._fsm.receive(symbol)
+        if IRichInput.providedBy(input):
+            symbol = input.symbol()
+            if not isinstance(input, self._richInputs):
+                raise IllegalInput(symbol)
+            outputs = self._fsm.receive(symbol)
+        else:
+            # if it's not a symbol, the underlying FSM will raise IllegalInput
+            outputs = self._fsm.receive(input)
+
         for output in outputs:
             adapter = self._inputContext.get(output, lambda o: o)
             self._world.output(output, adapter(input))
