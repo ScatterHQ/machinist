@@ -35,7 +35,9 @@ install:
 
   # Install the selected eliot version.
   - |
-    [ -v ELIOT ] && pip install "$(eval ${ELIOT})"
+    if [ -v ELIOT ]; then
+        pip install "$(eval ${ELIOT})"
+    fi
 
   - |
     pip install -e .
