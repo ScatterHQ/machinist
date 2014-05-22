@@ -112,6 +112,8 @@ __all__ = [
 
     "LOG_FSM_INITIALIZE",
     "LOG_FSM_TRANSITION",
+
+    "__version__",
     ]
 
 from ._fsm import (
