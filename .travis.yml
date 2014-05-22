@@ -18,6 +18,10 @@ env:
   - |
     ELIOT='echo git+https://github.com/hybridcluster/eliot.git'
 
+  # Test with a too-old version of eliot.
+  - |
+    ELIOT='echo eliot==0.3.0'
+
   # Test without any version of eliot.
   - |
     NO_ELIOT=''
