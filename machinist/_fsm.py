@@ -450,6 +450,16 @@ class _FiniteStateMachine(object):
 
 
     def _isTerminal(self, state):
+        """
+        Determine whether or not the given state is a terminal state in this
+        state machine.  Terminal states have no transitions to other states.
+        Additionally, terminal states have no outputs.
+
+        @param state: The state to examine.
+
+        @return: C{True} if the state is terminal, C{False} if it is not.
+        @rtype: L{bool}
+        """
         # This is private with the idea that maybe terminal should be defined
         # differently eventually - perhaps by accepting an explicit set of
         # terminal states in constructFiniteStateMachine.
