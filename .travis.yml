@@ -18,21 +18,39 @@ env:
   - |
     ELIOT='echo git+https://github.com/hybridcluster/eliot.git'
 
+  # Test with a too-old version of eliot.
+  - |
+    ELIOT='echo eliot==0.3.0'
+
+  # Test without any version of eliot.
+  - |
+    NO_ELIOT=''
 
 install:
-  - pip install coveralls coverage
-  - python setup.py --version
+  - |
+    pip install coveralls coverage
+
+  - |
+    python setup.py --version
 
   # Install the selected eliot version.
-  - pip install "$(eval ${ELIOT})"
-  - pip install -e .
+  - |
+    if [ -v ELIOT ]; then
+        pip install "$(eval ${ELIOT})"
+    fi
+
+  - |
+    pip install -e .
 
 script:
-  - coverage run --branch --source machinist $(type -p trial) machinist
-  - coverage report -m
+  - |
+    coverage run --branch --source machinist $(type -p trial) machinist
+  - |
+    coverage report -m
 
 after_success:
-  - coveralls
+  - |
+    coveralls
 
 notifications:
   email: false

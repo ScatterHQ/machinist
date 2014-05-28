@@ -5,7 +5,13 @@ from inspect import cleandoc
 
 from setuptools import setup
 
-__version__ = "0.1"
+import versioneer
+versioneer.VCS = 'git'
+versioneer.versionfile_source = 'machinist/_version.py'
+versioneer.versionfile_build = 'machinist/_version.py'
+versioneer.tag_prefix = '' # tags are like 1.2.0
+versioneer.parentdir_prefix = 'machinist-' # dirname like 'machinist-1.2.0'
+
 
 # For the convenience of the travis configuration, make this information
 # particularly easy to find.  See .travis.yml.
@@ -14,7 +20,9 @@ _MINIMUM_ELIOT_VERSION = "0.4.0"
 if __name__ == '__main__':
     setup(
         name="machinist",
-        version=__version__,
+        version=versioneer.get_version(),
+        # Allow versioneer to integrate with setup commands:
+        cmdclass=versioneer.get_cmdclass(),
         packages=["machinist", "machinist.test"],
         description=cleandoc("""
             Machinist is a tool for building finite state machines.
@@ -53,6 +61,9 @@ if __name__ == '__main__':
             ],
         install_requires=[
             "zope.interface>=3.6.0", "twisted>=13.1",
-            "eliot>=" + _MINIMUM_ELIOT_VERSION],
+            ],
+        extras_require={
+            "logging": ["eliot>=" + _MINIMUM_ELIOT_VERSION],
+            },
         test_suite="machinist",
         )
