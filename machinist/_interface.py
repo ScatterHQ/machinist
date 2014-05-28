@@ -76,6 +76,3 @@ class IRichInput(Interface):
         Return the symbol from the input alphabet to which this input
         corresponds.
         """
-
-
-
