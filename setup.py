@@ -61,6 +61,9 @@ if __name__ == '__main__':
             ],
         install_requires=[
             "zope.interface>=3.6.0", "twisted>=13.1",
-            "eliot>=" + _MINIMUM_ELIOT_VERSION],
+            ],
+        extras_require={
+            "logging": ["eliot>=" + _MINIMUM_ELIOT_VERSION],
+            },
         test_suite="machinist",
         )

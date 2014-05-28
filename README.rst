@@ -15,6 +15,13 @@ Installation
 
   $ pip install machinist
 
+Machinist's automatic structured logging depends on `eliot <https://github.com/hybridcluster/eliot>`_.
+Logging is declared as a Machinist extra so you can automatically install this dependency:
+
+.. code-block:: console
+
+  $ pip install machinist[logging]
+
 
 Defining Inputs, Outputs, and States
 ------------------------------------

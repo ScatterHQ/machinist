@@ -8,12 +8,6 @@ from zope.interface import Attribute, Interface, implementer
 from zope.interface.exceptions import DoesNotImplement
 from zope.interface.verify import verifyObject, verifyClass
 
-from eliot import MessageType, Logger
-from eliot.testing import (
-    issuperset, assertContainsFields, LoggedAction, LoggedMessage,
-    validateLogging,
-    )
-
 from twisted.python.util import FancyStrMixin
 from twisted.python.constants import Names, NamedConstant
 from twisted.trial.unittest import TestCase
@@ -34,6 +28,13 @@ from machinist import (
 
     LOG_FSM_TRANSITION,
     )
+
+from .loglib import (
+    MessageType, Logger,
+    issuperset, assertContainsFields, LoggedAction, LoggedMessage,
+    validateLogging, logSkipReason,
+)
+
 
 
 class Input(Names):
@@ -774,6 +775,9 @@ class FiniteStateMachineLoggingTests(TestCase):
     Tests for logging behavior of the L{IFiniteStateMachine} returned by
     L{constructFiniteStateMachine}.
     """
+    if logSkipReason is not None:
+        skip = logSkipReason
+
     def test_logger(self):
         """
         L{constructFiniteStateMachine} returns a FSM that also has a C{logger}

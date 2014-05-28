@@ -116,8 +116,19 @@ __all__ = [
     "__version__",
     ]
 
-from ._fsm import (
+from ._interface import (
     IFiniteStateMachine, IOutputExecutor, IRichInput,
+)
+
+try:
+    from ._logging import (
+        LOG_FSM_INITIALIZE,
+        LOG_FSM_TRANSITION,
+    )
+except ImportError:
+    LOG_FSM_INITIALIZE = LOG_FSM_TRANSITION = None
+
+from ._fsm import (
     StateMachineDefinitionError, ExtraTransitionState,
     MissingTransitionState, ExtraTransitionInput,
     MissingTransitionInput, ExtraTransitionOutput,
@@ -128,9 +139,6 @@ from ._fsm import (
 
     Transition, TransitionTable, trivialInput, constructFiniteStateMachine,
     MethodSuffixOutputer, stateful,
-
-    LOG_FSM_INITIALIZE,
-    LOG_FSM_TRANSITION,
 )
 
 from ._version import get_versions
