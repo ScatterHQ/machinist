@@ -4,7 +4,7 @@
 Log-related testing helpers.
 
 Eliot is an optional dependency.  This module provides a point of indirection
-so that the rest of the test suite can ignore the details of how to work
+so that the rest of the test suite can ignore the details of how to work out
 whether Eliot is installed or not.
 """
 
