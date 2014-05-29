@@ -14,7 +14,7 @@ State machines are represented by an object with a ``receive`` method which acce
 The input object is either an object from the set of inputs or an object related to one of those objects in a certain way (more on that later).
 When an input is received by the state machine, its state is updated and outputs are generated according to the defined transitions.
 
-If this sounds great to you then you might want to jump ahead to the `basic usage`_ documentation.
+If this sounds great to you then you might want to jump ahead to the :ref:`Basic Usage` documentation.
 Otherwise, read on.
 
 

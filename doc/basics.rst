@@ -1,3 +1,5 @@
+.. _Basic Usage:
+
 Basic Usage
 ===========
 
@@ -33,8 +35,8 @@ Transitions
 -----------
 
 Also required is a transition table.
-The transition table is defined using :py:type:`machinist.TransitionTable`.
-:py:type:`TransitionTable` instances are immutable and have several methods for creating new tables including more transitions.
+The transition table is defined using :py:class:`machinist.TransitionTable`.
+:py:class:`TransitionTable` instances are immutable and have several methods for creating new tables including more transitions.
 For example, here is a transition table which defines exactly one transition.
 It defines how the ``FARE_PAID`` input is handled in the ``LOCKED`` state: ``DISENGAGE_LOCK`` is output and the state machine changes to the ``ACTIVE`` state.
 
