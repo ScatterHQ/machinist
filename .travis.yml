@@ -55,7 +55,7 @@ install:
     fi
 
   - |
-    pip install -e .
+    pip install -e .[dev]
 
 script:
   - |

@@ -63,6 +63,7 @@ if __name__ == '__main__':
             "zope.interface>=3.6.0", "twisted>=13.1",
             ],
         extras_require={
+            "dev": ["sphinx>=1.2.2"],
             "logging": ["eliot>=" + _MINIMUM_ELIOT_VERSION],
             },
         test_suite="machinist",
