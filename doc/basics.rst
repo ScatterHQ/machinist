@@ -9,7 +9,7 @@ Inputs, Outputs, States
 -----------------------
 
 Before a machine can be constructed its inputs, outputs, and states must be defined.
-These are all defined using :py:func:`twisted.python.constants`.
+These are all defined using :py:module:`twisted.python.constants`.
 
 .. code-block:: python
 
