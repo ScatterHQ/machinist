@@ -28,18 +28,18 @@ env:
 
   # Build the documentation.
   - |
-    SPHINX_TARGET='html'
+    SPHINX_TARGET=html
 
   # Run the tests for the documentation.
   - |
-    SPHINX_TARGET='doctest'
+    SPHINX_TARGET=doctest
 
 matrix:
   exclude:
     - python: "pypy"
-      env: SPHINX_TARGET='html'
+      env: "SPHINX_TARGET=html"
     - python: "pypy"
-      env: SPHINX_TARGET='doctest'
+      env: "SPHINX_TARGET=doctest"
 
 install:
   - |
