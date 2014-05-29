@@ -26,6 +26,21 @@ env:
   - |
     NO_ELIOT=''
 
+  # Build the documentation.
+  - |
+    SPHINX_TARGET='html'
+
+  # Run the tests for the documentation.
+  - |
+    SPHINX_TARGET='doctest'
+
+matrix:
+  exclude:
+    - python: pypy
+      env: SPHINX_TARGET='html'
+    - python: pypy
+      env: SPHINX_TARGET='doctest'
+
 install:
   - |
     pip install coveralls coverage
@@ -44,13 +59,25 @@ install:
 
 script:
   - |
-    coverage run --branch --source machinist $(type -p trial) machinist
+    # Do a Sphinx thing if appropriate.
+    if [ -v SPHINX_TARGET ]; then
+        cd docs
+        make "${SPHINX_TARGET}"
+    else
+        coverage run --branch --source machinist $(type -p trial) machinist
+    fi
   - |
-    coverage report -m
+    # Don't bother generating a coverage report if we just did Sphinx stuff.
+    if [ ! -v SPHINX_TARGET ]; then
+        coverage report -m
+    fi
 
 after_success:
   - |
-    coveralls
+    # Don't bother reporting to coveralls if we just did Sphinx stuff.
+    if [ ! -v SPHINX_TARGET ]; then
+        coveralls
+    fi
 
 notifications:
   email: false
