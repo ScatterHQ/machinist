@@ -61,8 +61,7 @@ script:
   - |
     # Do a Sphinx thing if appropriate.
     if [ -v SPHINX_TARGET ]; then
-        cd docs
-        make "${SPHINX_TARGET}"
+        make -C doc "${SPHINX_TARGET}"
     else
         coverage run --branch --source machinist $(type -p trial) machinist
     fi
