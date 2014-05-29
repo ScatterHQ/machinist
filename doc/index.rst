@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    introduction
+   basics
 
 
 Indices and tables
