@@ -36,9 +36,9 @@ env:
 
 matrix:
   exclude:
-    - python: pypy
+    - python: "pypy"
       env: SPHINX_TARGET='html'
-    - python: pypy
+    - python: "pypy"
       env: SPHINX_TARGET='doctest'
 
 install:
