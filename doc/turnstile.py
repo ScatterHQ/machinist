@@ -4,7 +4,7 @@ from twisted.python.constants import Names, NamedConstant
 
 from machinist import (
     TransitionTable, MethodSuffixOutputer, constructFiniteStateMachine,
-    trivialInput)
+)
 
 from turnstilelib import TurnstileController
 
@@ -58,23 +58,23 @@ def main():
         states=TurnstileState,
         table=table,
         initial=TurnstileState.LOCKED,
-        richInputs=[trivialInput(i) for i in TurnstileInput.iterconstants()],
+        richInputs=[],
         inputContext={},
         world=MethodSuffixOutputer(Turnstile(hardware)),
     )
     while True:
         if hardware.paymentMade():
             hardware.resetNotification()
-            turnstileFSM.receive(trivialInput(TurnstileInput.FARE_PAID)())
+            turnstileFSM.receive(TurnstileInput.FARE_PAID)
         elif hardware.armTurned():
             hardware.resetNotification()
-            turnstileFSM.receive(trivialInput(TurnstileInput.ARM_TURNED)())
+            turnstileFSM.receive(TurnstileInput.ARM_TURNED)
         elif hardware.finishedLocking():
             hardware.resetNotification()
-            turnstileFSM.receive(trivialInput(TurnstileInput.ARM_LOCKED)())
+            turnstileFSM.receive(TurnstileInput.ARM_LOCKED)
         elif hardware.finishedUnlocking():
             hardware.resetNotification()
-            turnstileFSM.receive(trivialInput(TurnstileInput.ARM_UNLOCKED)())
+            turnstileFSM.receive(TurnstileInput.ARM_UNLOCKED)
         else:
             time.sleep(0.1)
 

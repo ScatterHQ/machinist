@@ -122,7 +122,7 @@ Having defined these things it is possible to use :py:func:`constructFiniteState
        states=State,
        table=table,
        initial=State.LOCKED,
-       richInputs={},
+       richInputs=[],
        inputContext={},
        world=outputer,
    )
