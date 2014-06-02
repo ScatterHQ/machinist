@@ -55,7 +55,7 @@ install:
     fi
 
   - |
-    pip install -e .[dev]
+    pip install --editable .[dev]
 
 script:
   - |
@@ -68,7 +68,7 @@ script:
   - |
     # Don't bother generating a coverage report if we just did Sphinx stuff.
     if [ ! -v SPHINX_TARGET ]; then
-        coverage report -m
+        coverage report --show-missing
     fi
 
 after_success:
