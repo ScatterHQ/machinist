@@ -244,6 +244,10 @@ texinfo_documents = [
 # How to display URL addresses: 'footnote', 'no', or 'inline'.
 #texinfo_show_urls = 'footnote'
 
-
-# Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'http://docs.python.org/': None}
+# Configure the intersphinx extension.
+#
+# Here is where configuration would go to make it possible to link to Twisted's
+# API docs - after https://twistedmatrix.com/trac/ticket/7459 is resolved.
+intersphinx_mapping = {
+    'http://docs.python.org/': None,
+    }
