@@ -534,6 +534,17 @@ class MethodSuffixOutputerTests(TestCase):
         self.assertEqual([context], animals)
 
 
+    def test_repr(self):
+        """
+        The result of L{MethodSuffixOutputer.__repr__} is a string that
+        mentions the wrapped object.
+        """
+        world = object()
+        self.assertEqual(
+            "<Output / %s>" % (world,),
+            repr(MethodSuffixOutputer(world)))
+
+
 
 class IFood(Interface):
     radius = Attribute("The radius of the food (all food is spherical)")
