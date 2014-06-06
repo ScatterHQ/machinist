@@ -285,6 +285,9 @@ def constructFiniteStateMachine(inputs, outputs, states, table, initial,
         side-effects.
     @type world: L{IOutputExecutor} provider
 
+    @param logger: TODO
+    @type logger: TODO
+
     @return: An L{IFiniteStateMachine} provider
     """
     table = table.table
