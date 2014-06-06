@@ -285,8 +285,8 @@ def constructFiniteStateMachine(inputs, outputs, states, table, initial,
         side-effects.
     @type world: L{IOutputExecutor} provider
 
-    @param logger: TODO
-    @type logger: TODO
+    @param logger: The logger to which to write messages.
+    @type logger: L{eliot.ILogger} or L{NoneType} if there is no logger.
 
     @return: An L{IFiniteStateMachine} provider
     """
