@@ -430,12 +430,7 @@ class _FiniteStateMachine(object):
 
 
     def receive(self, input):
-        try:
-            current = self.table[self.state]
-        except KeyError:
-            raise ValueError(
-                "FiniteStateMachine has no transition table for state %r!" % (
-                    self.state,))
+        current = self.table[self.state]
 
         if input not in self.inputs.iterconstants():
             raise IllegalInput(input)
