@@ -708,7 +708,11 @@ class FiniteStateMachineTests(TestCase):
         self.assertEqual([(Output.aardvark, apple)], self.animals)
 
 
-    def test_reprFSI(self):
+    def test_noLoggingRepr(self):
+        """
+        The other string representation of an L{IFiniteStateMachine} with no
+        logger includes X.
+        """
         fsm = constructFiniteStateMachine(
             Input, Output, MoreState, TRANSITIONS, self.initial,
             [Gravenstein], {Output.aardvark: IFood},
