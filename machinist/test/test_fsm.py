@@ -708,6 +708,15 @@ class FiniteStateMachineTests(TestCase):
         self.assertEqual([(Output.aardvark, apple)], self.animals)
 
 
+    def test_reprFSI(self):
+        fsm = constructFiniteStateMachine(
+            Input, Output, MoreState, TRANSITIONS, self.initial,
+            [Gravenstein], {Output.aardvark: IFood},
+            MethodSuffixOutputer(self.world), None)
+        self.assertEqual(
+            repr(fsm),
+            "<FSM / %s>" % (MethodSuffixOutputer(self.world),))
+
 
 
 class IsTerminalTests(TestCase):
