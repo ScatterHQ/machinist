@@ -708,10 +708,11 @@ class FiniteStateMachineTests(TestCase):
         self.assertEqual([(Output.aardvark, apple)], self.animals)
 
 
-    def test_noLoggingRepr(self):
+    def test_FiniteStateInterpreterRepr(self):
         """
-        The other string representation of an L{IFiniteStateMachine} with no
-        logger includes the string representation of the given L{world}.
+        The result of L{_FiniteStateInterpreter.__repr__} is a string that
+        includes the L{IOutputExecutor} provider that
+        L{_FiniteStateInterpreter} can drive.
         """
         fsm = constructFiniteStateMachine(
             Input, Output, MoreState, TRANSITIONS, self.initial,
