@@ -711,7 +711,7 @@ class FiniteStateMachineTests(TestCase):
     def test_noLoggingRepr(self):
         """
         The other string representation of an L{IFiniteStateMachine} with no
-        logger includes X.
+        logger includes the string representation of the given L{world}.
         """
         fsm = constructFiniteStateMachine(
             Input, Output, MoreState, TRANSITIONS, self.initial,
