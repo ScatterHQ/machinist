@@ -1,4 +1,4 @@
-# This is example is marked up for piecewise inclusion in basics.rst.  All code
+# This example is marked up for piecewise inclusion in basics.rst.  All code
 # relevant to machinist must fall between inclusion markers (so, for example,
 # __future__ imports may be outside such markers; also this is required by
 # Python syntax).  If you damage the markers the documentation will silently
