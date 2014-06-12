@@ -110,7 +110,7 @@ In this well-defined way the otherwise rigid, structured, explicit state machine
 Construction
 ------------
 
-Having defined these things it is possible to use :py:func:`constructFiniteStateMachine` to construct the finite state machine.
+Having defined these things, we can now use :py:func:`constructFiniteStateMachine` to construct the finite state machine.
 
 .. testcode:: turnstile
 
@@ -135,7 +135,7 @@ This defines the state that the state machine is in immediately after :py:func:`
 Receiving Inputs
 ----------------
 
-Having created a state machine it is now possible to deliver inputs to it.
+Having created a state machine, we can now deliver inputs to it.
 The simplest way to do this is to pass input symbols to the :py:attr:`receive` method:
 
 .. testcode:: turnstile
