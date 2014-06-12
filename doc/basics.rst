@@ -38,7 +38,10 @@ Next, define how the ``ARM_TURNED`` input is handled in the ``UNLOCKED`` state: 
    :start-after: begin second transition
    :end-before: end second transition
 
-Last, define two transitions at once for getting out of the ``ACTIVE`` state.
+Last, define two transitions at once for getting out of the ``ACTIVE`` state
+(in this model ``DISENGAGE_LOCK`` and ``ENGAGE_LOCK`` activate a physical device to change the lock state;
+the state machine then waits for an input indicating the physical device has completed the desired operation).
+
 ``addTransitions`` is a convenient way to define more than one transition at once.
 It is equivalent to several ``addTransition`` calls.
 
