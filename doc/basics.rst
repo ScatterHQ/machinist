@@ -59,7 +59,7 @@ Next, define how the ``ARM_TURNED`` input is handled in the ``UNLOCKED`` state: 
        State.UNLOCKED, Input.ARM_TURNED, [Output.ENGAGE_LOCK], State.ACTIVE)
 
 Last, define two transitions at once for getting out of the ``ACTIVE`` state.
-``addTransitions`` a convenient way to define more than one transition at once.
+``addTransitions`` is a convenient way to define more than one transition at once.
 It is equivalent to several ``addTransition`` calls.
 
 .. testcode:: turnstile
