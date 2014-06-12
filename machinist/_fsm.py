@@ -285,6 +285,9 @@ def constructFiniteStateMachine(inputs, outputs, states, table, initial,
         side-effects.
     @type world: L{IOutputExecutor} provider
 
+    @param logger: The logger to which to write messages.
+    @type logger: L{eliot.ILogger} or L{NoneType} if there is no logger.
+
     @return: An L{IFiniteStateMachine} provider
     """
     table = table.table
@@ -430,12 +433,7 @@ class _FiniteStateMachine(object):
 
 
     def receive(self, input):
-        try:
-            current = self.table[self.state]
-        except KeyError:
-            raise ValueError(
-                "FiniteStateMachine has no transition table for state %r!" % (
-                    self.state,))
+        current = self.table[self.state]
 
         if input not in self.inputs.iterconstants():
             raise IllegalInput(input)

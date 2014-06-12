@@ -534,6 +534,17 @@ class MethodSuffixOutputerTests(TestCase):
         self.assertEqual([context], animals)
 
 
+    def test_repr(self):
+        """
+        The result of L{MethodSuffixOutputer.__repr__} is a string that
+        mentions the wrapped object.
+        """
+        world = object()
+        self.assertEqual(
+            "<Output / %s>" % (world,),
+            repr(MethodSuffixOutputer(world)))
+
+
 
 class IFood(Interface):
     radius = Attribute("The radius of the food (all food is spherical)")
@@ -707,6 +718,20 @@ class FiniteStateMachineTests(TestCase):
         self.fsm.receive(apple)
         self.assertEqual([(Output.aardvark, apple)], self.animals)
 
+
+    def test_FiniteStateInterpreterRepr(self):
+        """
+        The result of L{_FiniteStateInterpreter.__repr__} is a string that
+        includes the L{IOutputExecutor} provider that
+        L{_FiniteStateInterpreter} can drive.
+        """
+        fsm = constructFiniteStateMachine(
+            Input, Output, MoreState, TRANSITIONS, self.initial,
+            [Gravenstein], {Output.aardvark: IFood},
+            MethodSuffixOutputer(self.world), None)
+        self.assertEqual(
+            repr(fsm),
+            "<FSM / %s>" % (MethodSuffixOutputer(self.world),))
 
 
 
