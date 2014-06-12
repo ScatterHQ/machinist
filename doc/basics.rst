@@ -96,7 +96,7 @@ The simplest way to do this is to pass input symbols to the :py:attr:`receive` m
    :start-after: begin inputs
    :end-before: end inputs
 
-If we combine all of these snippets and call :py:func:`cycle` the result is a program that produces this result:
+If we :ref:`combine all of these snippets <turnstile-example>` and call :py:func:`cycle` the result is a program that produces this result:
 
 .. testsetup:: turnstile
 

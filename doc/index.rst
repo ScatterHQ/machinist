@@ -13,7 +13,7 @@ Contents:
 
    introduction
    basics
-
+   examples
 
 Indices and tables
 ==================
