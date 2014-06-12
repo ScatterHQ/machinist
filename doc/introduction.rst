@@ -42,7 +42,7 @@ In :abbr:`ism (implicit state machine)` software it is impractical to enumerate 
 There are 2\ :superscript:`16` (65536) states in this program.
 Without reading all the program that manipulates this state it's impossible to know which of them are important or how they might interact.
 Extend your imagination to any real piece of software which might operate on dozens, hundreds, or thousands of megabytes of memory.
-Consider consider the number of states this amount of memory implies.
+Consider the number of states this amount of memory implies.
 It's not just difficult to make sense of this collection of states, it is practically impossible.
 
 Contrast this with an explicit state machine where each state is given a name and put in a list.
