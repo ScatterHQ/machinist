@@ -31,14 +31,14 @@ Myriad inputs and outputs exist in the form of:
   * data which is rendered onto displays.
   * sound which is created by speakers.
 
-The difference between an explicit state machine and software written without a state machine (let's call this *implicit state machine software* or *ism software*) mostly comes down to what it is easy to learn about the state machine being represented.
+The difference between an explicit state machine and software written without a state machine (let's call this *implicit state machine* software or *ism* software) mostly comes down to what it is easy to learn about the state machine being represented.
 
 
 States
 ------
 
 In the explicit state machine all of the states have been enumerated and can be learned at a glance.
-In *ism software* it is impractical to enumerate the states: imagine a program with just one piece of memory, a 16 bit integer.
+In :abbr:`ism (implicit state machine)` software it is impractical to enumerate the states: imagine a program with just one piece of memory, a 16 bit integer.
 There are 2\ :superscript:`16` (65536) states in this program.
 Without reading all the program that manipulates this state it's impossible to know which of them are important or how they might interact.
 Extend your imagination to any real piece of software which might operate on dozens, hundreds, or thousands of megabytes of memory.
@@ -53,7 +53,7 @@ Inputs and Outputs
 ------------------
 
 In the explicit state machine all of the inputs and outputs are also completely enumerated.
-In *ism software* these are usually only defined by the implementation accepting or producing them.
+In :abbr:`ism (implicit state machine)` software these are usually only defined by the implementation accepting or producing them.
 This means there is just one way to determine what inputs are accepted and what outputs are produced:
 read the implementation.
 If you're lucky, someone will have done this already and produced some API documentation.
@@ -69,7 +69,7 @@ Transitions
 Once again, transitions are completely enumerated in the definition of an explicit state machine.
 A single transition specifies that when a specific input is received while the state machine is in a specific state a specific output is produced and the state machine changes to a specific new state.
 A collection of transitions completely specifies how the state machine reacts to inputs and how its future behavior is changed by those inputs.
-In *ism software* it is conventional to define a constellation of flags to track the state of the program.
+In :abbr:`ism (implicit state machine)` software it is conventional to define a constellation of flags to track the state of the program.
 It is left up to the programmer to build and remember the cartesian product of these flags in their head.
 There are also usually illegal flag combinations which the program is never *supposed* to encounter.
 These are either left as traps to future programmers or the implementer must take the tedious steps of building guards against them arising.
