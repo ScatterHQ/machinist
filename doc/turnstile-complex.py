@@ -1,3 +1,10 @@
+#
+# Note: This is not a runnable example!  It depends on a fictional library for
+# manipulating some imaginary hardware that might drive a real-world, physical
+# turnstile.  However, the machinist-using code in this file is intended to be
+# realistic and correct.
+#
+
 import time
 
 from twisted.python.constants import Names, NamedConstant
