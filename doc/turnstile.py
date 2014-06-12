@@ -1,80 +1,89 @@
-import time
+# This example is marked up for piecewise inclusion in basics.rst.  All code
+# relevant to machinist must fall between inclusion markers (so, for example,
+# __future__ imports may be outside such markers; also this is required by
+# Python syntax).  If you damage the markers the documentation will silently
+# break.  So try not to do that.
 
+from __future__ import print_function
+
+# begin setup
 from twisted.python.constants import Names, NamedConstant
 
-from machinist import (
-    TransitionTable, MethodSuffixOutputer, constructFiniteStateMachine,
-    trivialInput)
-
-from turnstilelib import TurnstileController
-
-class TurnstileInput(Names):
+class Input(Names):
     FARE_PAID = NamedConstant()
     ARM_UNLOCKED = NamedConstant()
     ARM_TURNED = NamedConstant()
     ARM_LOCKED = NamedConstant()
 
-class TurnstileOutput(Names):
+class Output(Names):
     ENGAGE_LOCK = NamedConstant()
     DISENGAGE_LOCK = NamedConstant()
 
-class TurnstileState(Names):
+class State(Names):
     LOCKED = NamedConstant()
     UNLOCKED = NamedConstant()
     ACTIVE = NamedConstant()
+# end setup
+
+# begin table def
+from machinist import TransitionTable
 
 table = TransitionTable()
-table = table.addTransitions(
-    TurnstileState.UNLOCKED, {
-        TurnstileInput.ARM_TURNED:
-            ([TurnstileOutput.ENGAGE_LOCK], TurnstileState.ACTIVE),
-    })
-table = table.addTransitions(
-    TurnstileState.ACTIVE, {
-        TurnstileInput.ARM_LOCKED: ([], TurnstileState.LOCKED),
-        TurnstileInput.ARM_UNLOCKED: ([], TurnstileState.UNLOCKED),
-    })
-table = table.addTransitions(
-    TurnstileState.LOCKED, {
-        TurnstileInput.FARE_PAID:
-            ([TurnstileOutput.DISENGAGE_LOCK], TurnstileState.ACTIVE),
-      })
+# end table def
 
-class Turnstile(object):
-    def __init__(self, hardware):
-        self._hardware = hardware
+# begin first transition
+table = table.addTransition(
+    State.LOCKED, Input.FARE_PAID, [Output.DISENGAGE_LOCK], State.ACTIVE)
+# end first transition
 
+# begin second transition
+table = table.addTransition(
+    State.UNLOCKED, Input.ARM_TURNED, [Output.ENGAGE_LOCK], State.ACTIVE)
+# end second transition
+
+# begin last transitions
+table = table.addTransitions(
+    State.ACTIVE, {
+        Input.ARM_UNLOCKED: ([], State.UNLOCKED),
+        Input.ARM_LOCKED: ([], State.LOCKED),
+        })
+# end last transitions
+
+# begin outputer
+from machinist import MethodSuffixOutputer
+
+class Outputer(object):
     def output_ENGAGE_LOCK(self, engage):
-        self._hardware.engageLock()
+        print("Engaging the lock.")
 
     def output_DISENGAGE_LOCK(self, disengage):
-        self._hardware.disengageLock()
+        print("Disengaging the lock.")
 
-def main():
-    hardware = TurnstileController(digitalPin=0x13)
-    turnstileFSM = constructFiniteStateMachine(
-        inputs=TurnstileInput,
-        outputs=TurnstileOutput,
-        states=TurnstileState,
-        table=table,
-        initial=TurnstileState.LOCKED,
-        richInputs=[trivialInput(i) for i in TurnstileInput.iterconstants()],
-        inputContext={},
-        world=MethodSuffixOutputer(Turnstile(hardware)),
-    )
-    while True:
-        if hardware.paymentMade():
-            hardware.resetNotification()
-            turnstileFSM.receive(trivialInput(TurnstileInput.FARE_PAID)())
-        elif hardware.armTurned():
-            hardware.resetNotification()
-            turnstileFSM.receive(trivialInput(TurnstileInput.ARM_TURNED)())
-        elif hardware.finishedLocking():
-            hardware.resetNotification()
-            turnstileFSM.receive(trivialInput(TurnstileInput.ARM_LOCKED)())
-        elif hardware.finishedUnlocking():
-            hardware.resetNotification()
-            turnstileFSM.receive(trivialInput(TurnstileInput.ARM_UNLOCKED)())
-        else:
-            time.sleep(0.1)
+outputer = MethodSuffixOutputer(Outputer())
+# end outputer
 
+# begin construct
+from machinist import constructFiniteStateMachine
+
+turnstile = constructFiniteStateMachine(
+    inputs=Input,
+    outputs=Output,
+    states=State,
+    table=table,
+    initial=State.LOCKED,
+    richInputs=[],
+    inputContext={},
+    world=outputer,
+)
+# end construct
+
+# begin inputs
+def cycle():
+    turnstile.receive(Input.FARE_PAID)
+    turnstile.receive(Input.ARM_UNLOCKED)
+    turnstile.receive(Input.ARM_TURNED)
+    turnstile.receive(Input.ARM_LOCKED)
+# end inputs
+
+if __name__ == '__main__':
+    cycle()

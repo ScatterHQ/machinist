@@ -82,7 +82,7 @@ To build an instance of a finite state machine from the transition, pass the inp
       states=TurnstileState,
       table=table,
       initial=TurnstileState.LOCKED,
-      richInputs=[trivialInput(i) for i in TurnstileInput.iterconstants()]
+      richInputs=[]
       inputContext={},
       world=MethodSuffixOutputer(Turnstile(hardware)),
   )
@@ -100,7 +100,7 @@ To provide an input to the FSM, ``receive`` on the FSM must be called with an in
 
 .. code-block:: python
 
-  turnstileFSM.receive(trivialInput(TurnstileInput.FARE_PAID)())
+  turnstileFSM.receive(TurnstileInput.FARE_PAID)
 
 
 Further Reading
