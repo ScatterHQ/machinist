@@ -868,7 +868,6 @@ class FiniteStateMachineLoggingTests(TestCase):
                     u"action_type": u"fsm:initialize",
                     u"action_status": u"succeeded",
                     u"task_uuid": logger.messages[0][u"task_uuid"],
-                    u"task_level": u"/",
                     }))
 
 
