@@ -107,7 +107,7 @@ For the rest of the example code, see `doc/turnstile.py <https://github.com/Clus
 
 For more discussion of the benefits of using finite state machines, see:
 
- * https://www.hybridcluster.com/blog/what-is-a-state-machine/
- * https://www.hybridcluster.com/blog/benefits-state-machine/
- * https://www.hybridcluster.com/blog/unit-testing-state-machines/
- * https://www.hybridcluster.com/blog/isolating-side-effects-state-machines/
+ * https://www.clusterhq.com/blog/what-is-a-state-machine/
+ * https://www.clusterhq.com/blog/benefits-state-machine/
+ * https://www.clusterhq.com/blog/unit-testing-state-machines/
+ * https://www.clusterhq.com/blog/isolating-side-effects-state-machines/
