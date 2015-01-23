@@ -1,8 +1,8 @@
 .. image:: https://travis-ci.org/ClusterHQ/machinist.png
   :target: https://travis-ci.org/ClusterHQ/machinist
 
-.. image:: https://coveralls.io/repos/ClusterHQ/machinist/badge.png
-  :target: https://coveralls.io/r/ClusterHQ/machinist
+.. image:: https://coveralls.io/repos/hybridcluster/machinist/badge.png
+  :target: https://coveralls.io/r/hybridcluster/machinist
 
 
 Installation
