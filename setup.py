@@ -15,7 +15,7 @@ versioneer.parentdir_prefix = 'machinist-' # dirname like 'machinist-1.2.0'
 
 # For the convenience of the travis configuration, make this information
 # particularly easy to find.  See .travis.yml.
-_MINIMUM_ELIOT_VERSION = "0.4.0"
+_MINIMUM_ELIOT_VERSION = "0.5.0"
 
 if __name__ == '__main__':
     setup(
