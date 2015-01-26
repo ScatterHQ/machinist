@@ -16,7 +16,7 @@ env:
 
   # Test against master@HEAD version of eliot.
   - |
-    ELIOT='echo git+https://github.com/hybridcluster/eliot.git'
+    ELIOT='echo git+https://github.com/ClusterHQ/eliot.git'
 
   # Test with a too-old version of eliot.
   - |

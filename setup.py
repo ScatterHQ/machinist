@@ -37,7 +37,7 @@ if __name__ == '__main__':
             each time an input is mapped to an output (though the new value may be
             the same as the old value).
             """),
-        url="https://github.com/hybridcluster/machinist",
+        url="https://github.com/ClusterHQ/machinist",
         classifiers=[
             "Development Status :: 4 - Beta",
             "Intended Audience :: Developers",

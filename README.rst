@@ -1,11 +1,8 @@
-.. image:: https://travis-ci.org/hybridcluster/machinist.png
-  :target: https://travis-ci.org/hybridcluster/machinist
+.. image:: https://travis-ci.org/ClusterHQ/machinist.png
+  :target: https://travis-ci.org/ClusterHQ/machinist
 
 .. image:: https://coveralls.io/repos/hybridcluster/machinist/badge.png
   :target: https://coveralls.io/r/hybridcluster/machinist
-
-.. image:: https://badge.waffle.io/hybridcluster/machinist.png?label=ready&title=Ready
-  :target: https://waffle.io/hybridcluster/machinist
 
 
 Installation
@@ -15,7 +12,7 @@ Installation
 
   $ pip install machinist
 
-Machinist's automatic structured logging depends on `eliot <https://github.com/hybridcluster/eliot>`_.
+Machinist's automatic structured logging depends on `eliot <https://github.com/ClusterHQ/eliot>`_.
 Logging is declared as a Machinist extra so you can automatically install this dependency:
 
 .. code-block:: console
@@ -106,11 +103,11 @@ To provide an input to the FSM, ``receive`` on the FSM must be called with an in
 Further Reading
 ---------------
 
-For the rest of the example code, see `doc/turnstile.py <https://github.com/hybridcluster/machinist/blob/master/doc/turnstile.py>`_.
+For the rest of the example code, see `doc/turnstile.py <https://github.com/ClusterHQ/machinist/blob/master/doc/turnstile.py>`_.
 
 For more discussion of the benefits of using finite state machines, see:
 
- * https://www.hybridcluster.com/blog/what-is-a-state-machine/
- * https://www.hybridcluster.com/blog/benefits-state-machine/
- * https://www.hybridcluster.com/blog/unit-testing-state-machines/
- * https://www.hybridcluster.com/blog/isolating-side-effects-state-machines/
+ * https://www.clusterhq.com/blog/what-is-a-state-machine/
+ * https://www.clusterhq.com/blog/benefits-state-machine/
+ * https://www.clusterhq.com/blog/unit-testing-state-machines/
+ * https://www.clusterhq.com/blog/isolating-side-effects-state-machines/
