@@ -26,6 +26,7 @@ from machinist import (
 
     WrongState, stateful,
 
+    LOG_FSM_INITIALIZE,
     LOG_FSM_TRANSITION,
     )
 
@@ -861,16 +862,16 @@ class FiniteStateMachineLoggingTests(TestCase):
 
         fsm.receive(Gravenstein())
 
-        self.assertTrue(
-            issuperset(logger.messages[3], {
-                    u"fsm_terminal_state": u"<MoreState=blue>",
-                    # Prove it associates with the initialization action.
-                    u"action_type": u"fsm:initialize",
-                    u"action_status": u"succeeded",
-                    u"task_uuid": logger.messages[0][u"task_uuid"],
-                    u"task_level": u"/",
-                    }))
+        (initialize,) = LoggedAction.of_type(
+            logger.messages, LOG_FSM_INITIALIZE
+        )
 
+        assertContainsFields(
+            self, initialize.end_message, {
+                u"fsm_terminal_state": u"<MoreState=blue>",
+                u"action_status": u"succeeded",
+            }
+        )
 
     @validateLogging(None)
     def test_noRepeatedTerminalLogging(self, logger):
