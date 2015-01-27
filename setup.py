@@ -9,7 +9,7 @@ import versioneer
 versioneer.VCS = 'git'
 versioneer.versionfile_source = 'machinist/_version.py'
 versioneer.versionfile_build = 'machinist/_version.py'
-versioneer.tag_prefix = '' # tags are like 1.2.0
+versioneer.tag_prefix = 'machinist-' # tags are like 1.2.0
 versioneer.parentdir_prefix = 'machinist-' # dirname like 'machinist-1.2.0'
 
 
