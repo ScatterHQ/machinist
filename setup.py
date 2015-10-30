@@ -65,6 +65,20 @@ if __name__ == '__main__':
         extras_require={
             "dev": ["sphinx>=1.2.2"],
             "logging": ["eliot>=" + _MINIMUM_ELIOT_VERSION],
+            "visualization": [
+                "networkx>=1.10",
+
+                # Some alternate renderers
+
+                # graphviz.  requires graphviz-dev.
+                "pygraphviz>=1.3.1",
+
+                # matplotlib.  requires build-dep matplotlib and python-numpy (tons of stuff).
+                "matplotlib>=1.5.0",
+                # AAAAAAAAAARRRRRRRRRRRRRRRRGHHHHHHHHHHHHHHHHHHHHHHHh
+                "pyparsing==1.5.7",
+                "pydot>=1.0.2",
+                ],
             },
         test_suite="machinist",
         )
