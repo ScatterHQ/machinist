@@ -35,7 +35,7 @@ def render_graphviz(graph_name, graph):
 
 def render_matplotlib(graph_name, graph):
     from matplotlib import pyplot as plt
-    from networkx import spring_layout, graphviz_layout, draw_networkx, draw_spring
+    from networkx import spring_layout, graphviz_layout, draw_networkx, draw_spring, get_edge_attributes
     plt.rcParams['text.usetex'] = False
     plt.figure(figsize=(24, 24))
     pos = spring_layout(graph)
@@ -62,6 +62,7 @@ def render_matplotlib(graph_name, graph):
     draw_networkx_edge_labels(
         graph,
         pos,
+        edge_labels=get_edge_attributes(graph, "label"),
     )
     # draw_spring(graph)
     font = {
