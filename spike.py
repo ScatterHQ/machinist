@@ -6,6 +6,7 @@ from sys import argv
 from networkx import (
     DiGraph, to_agraph,
     draw_networkx_edges, draw_networkx_nodes, draw_networkx_labels,
+    draw_networkx_edge_labels,
 )
 from twisted.python.reflect import namedAny
 
@@ -34,10 +35,10 @@ def render_graphviz(graph_name, graph):
 
 def render_matplotlib(graph_name, graph):
     from matplotlib import pyplot as plt
-    from networkx import graphviz_layout
+    from networkx import spring_layout, graphviz_layout, draw_networkx, draw_spring
     plt.rcParams['text.usetex'] = False
-    plt.figure(figsize=(8, 8))
-    pos = graphviz_layout(graph)
+    plt.figure(figsize=(24, 24))
+    pos = spring_layout(graph)
 
     # Yea, just a giant heap of global mutable state.  Why not, anyway?
     draw_networkx_edges(
@@ -57,8 +58,12 @@ def render_matplotlib(graph_name, graph):
     draw_networkx_labels(
         graph,
         pos,
-        fontsize=14,
     )
+    draw_networkx_edge_labels(
+        graph,
+        pos,
+    )
+    # draw_spring(graph)
     font = {
         'fontname'   : 'Helvetica',
         'color'      : 'k',
